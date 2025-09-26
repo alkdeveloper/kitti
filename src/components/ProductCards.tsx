@@ -7,7 +7,6 @@ import prodImage2 from "@/images/product-image-2.png";
 import prodImage3 from "@/images/product-image-3.png";
 import catIcon from "@/images/cat-icon.png";
 
-// 📌 Ürün datası
 const products = [
   {
     id: 1,

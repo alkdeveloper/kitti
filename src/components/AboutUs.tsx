@@ -1,32 +1,32 @@
 "use client";
 
 import React from "react";
-import turkeyMap from "@/images/turkey-map.gif";
-import whoWeAreBg from "@/images/who-we-are.png";
+import { contentData } from "@/data/content";
+import { imageAssets, IMAGE_PATHS } from "@/data/images";
 
 const AboutUs: React.FC = () => {
   return (
     <section
       className="about-us-section"
       style={{
-        backgroundImage: `url(${whoWeAreBg.src})`,
+        backgroundImage: `url(${IMAGE_PATHS.CONTENT_WHO_WE_ARE})`,
       }}
     >
-      <h4 className="about-us-subtitle">Atölyeden Dünyaya</h4>
-      <h2 className="about-us-title">TÜRKİYE’NİN DÖRT BİR YANINDA</h2>
+      <h4 className="about-us-subtitle">{contentData.aboutUs.subtitle}</h4>
+      <h2 className="about-us-title">{contentData.aboutUs.title}</h2>
 
       <div className="about-us-map">
-        <img src={turkeyMap.src} alt="Turkey Map" />
+        <img 
+          src={IMAGE_PATHS.CONTENT_TURKEY_MAP_GIF} 
+          alt={imageAssets.altTexts.turkeyMapGif} 
+        />
       </div>
 
-      <p className="about-us-text">
-        For years, Kitti products have been available at thousands of sales
-        points all across Turkey.
-      </p>
-      <p className="about-us-text">
-        With our export strength, our colorful accessories also meet children in
-        different markets around the world.
-      </p>
+      {contentData.aboutUs.description.map((text, index) => (
+        <p key={index} className="about-us-text">
+          {text}
+        </p>
+      ))}
     </section>
   );
 };

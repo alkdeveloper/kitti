@@ -1,19 +1,19 @@
 "use client";
 
 import React from "react";
-import smileGirl from "@/images/smile-girl.png";
+import { contentData } from "@/data/content";
+import { imageAssets } from "@/data/images";
 
 const ChildSafety: React.FC = () => {
   return (
     <section 
       className="child-safety-section"
-      style={{ backgroundImage: `url(${smileGirl.src})` }}
+      style={{ backgroundImage: `url(${imageAssets.content.smileGirl})` }}
     >
       <div className="child-safety-container">
-        <h2 className="child-safety-title">Çocuklardan ilham, güvenle büyüme</h2>
+        <h2 className="child-safety-title">{contentData.childSafety.title}</h2>
         <p className="child-safety-description">
-          Yıllardır süren yolculuğumuzda işimizi güven, kalite ve yenilik 
-          üzerine kurduk.
+          {contentData.childSafety.description}
         </p>
       </div>
     </section>

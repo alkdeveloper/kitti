@@ -1,28 +1,30 @@
 "use client";
 
 import React from "react";
-import turkeyMap from "@/images/turkey-map-2.gif";
+import { contentData } from "@/data/content";
+import { imageAssets } from "@/data/images";
 
 const TurkeyMap: React.FC = () => {
   return (
     <section className="turkey-map-section">
       <div className="turkey-map-container">
         <h2 className="turkey-map-title">
-          <span className="turkey-map-small">TÜRKİYE'NİN</span>
-          <span className="turkey-map-big">DÖRT BİR YANINDA</span>
+          <span className="turkey-map-small">{contentData.turkeyMap.title.small}</span>
+          <span className="turkey-map-big">{contentData.turkeyMap.title.big}</span>
         </h2>
 
         <div className="turkey-map-visual">
           <img
-            src={turkeyMap.src}
-            alt="Türkiye Haritası"
+            src={imageAssets.turkeyMap}
+            alt={imageAssets.altTexts.turkeyMap}
             className="turkey-map-image"
           />
         </div>
 
         <div className="map-text">
-          <p>İstanbul'den Iğdır'a kadar,</p>
-          <p>nerede bir çocuk gülüğü varsa oradayız.</p>
+          {contentData.turkeyMap.description.map((line, index) => (
+            <p key={index}>{line}</p>
+          ))}
         </div>
       </div>
     </section>

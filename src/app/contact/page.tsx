@@ -15,7 +15,7 @@ export default function Contact() {
       <Header theme="white" />
       <ContactUs />
       <ContactCards />
-      <Footer  />
+      <Footer theme="bordered"/>
       <FooterBottom />
       <ScrollToTop />
     </>

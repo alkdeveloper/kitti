@@ -1,37 +1,34 @@
+"use client";
+
 import React from "react";
-import heroSecondaryBackground from "@/images/hero-secondary-bg.png";
-import heroSecondaryMobile from "@/images/hero-secondary-bg-mobile.png";
+import { contentData } from "@/data/content";
+import { imageAssets, IMAGE_PATHS } from "@/data/images";
 
 const HeroSectionSecondary: React.FC = () => {
   return (
     <section className="hero-section-secondary">
       <div className="hero-container">
         <img
-          src={heroSecondaryBackground.src}
-          alt="Hero Background"
+          src={IMAGE_PATHS.CONTENT_HERO_SECONDARY_BACKGROUND}
+          alt={imageAssets.altTexts.heroSecondaryBackground}
           className="hero-bg-normal"
         />
 
         <img
-          src={heroSecondaryMobile.src}
-          alt="Hero Background"
+          src={IMAGE_PATHS.CONTENT_HERO_SECONDARY_MOBILE}
+          alt={imageAssets.altTexts.heroSecondaryMobile}
           className="hero-bg-mobile"
         />
         <div className="hero-content">
           <div className="hero-logo">
-            <h2 className="hero-subtitle">1978’den bu güne</h2>
-            <h1 className="hero-title">47+ Yıllık Deneyim</h1>
+            <h2 className="hero-subtitle">{contentData.heroSectionSecondary.subtitle}</h2>
+            <h1 className="hero-title">{contentData.heroSectionSecondary.title}</h1>
           </div>
 
           <div className="hero-text">
-            <p>
-              Kitti, yalnızca çocuk aksesuarlarında değil; erkek ve kadın
-              koleksiyonlarıyla da dünyanın birçok pazarında tercih ediliyor.
-            </p>
-            <p>
-              Bir çok ülkeye kadar genişleyen ihracat gücü, Kitti’yi global
-              sahnede de güvenilir bir oyuncu haline getiriyor.
-            </p>
+            {contentData.heroSectionSecondary.description.map((text, index) => (
+              <p key={index}>{text}</p>
+            ))}
           </div>
         </div>
       </div>

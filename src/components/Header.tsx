@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { contentData } from '@/data/content';
 
 interface HeaderProps {
   theme?: string; 
@@ -31,16 +32,20 @@ const Header: React.FC<HeaderProps> = ({ theme = "primary" }) => {
           
           <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>
             <ul className="nav-list">
-              <li><Link href="/" className="nav-link">Anasayfa</Link></li>
-              <li><a href="/products" className="nav-link">Ürünler</a></li>
-              <li><a href="/our-story" className="nav-link">Hikayemiz</a></li>
-              <li><a href="/contact" className="nav-link">İletişim</a></li>
-              <li><a href="/toptan-portal" className="nav-link">Toptan Portal</a></li>
+              {contentData.header.navigation.map((item, index) => (
+                <li key={index}>
+                  {item.href === "/" ? (
+                    <Link href={item.href} className="nav-link">{item.text}</Link>
+                  ) : (
+                    <a href={item.href} className="nav-link">{item.text}</a>
+                  )}
+                </li>
+              ))}
             </ul>
           </nav>
           
           <div className="header-right">
-            <a href="#" className="language-link">EN</a>
+            <a href="#" className="language-link">{contentData.header.language}</a>
             <button 
               className={`hamburger-menu ${isMenuOpen ? 'hamburger-open' : ''}`}
               onClick={toggleMenu}

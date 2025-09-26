@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-
-import contactBg from "@/images/contact-bg.png";
+import { imageAssets } from "@/data/images";
 
 interface WhatWeProduceProps {
   title: string;
@@ -21,7 +20,7 @@ const WhatWeProduce: React.FC<WhatWeProduceProps> = ({
   return (
     <section
       className="what-we-produce-section"
-      style={{ backgroundImage: `url(${contactBg.src})` }}
+      style={{ backgroundImage: `url(${imageAssets.backgrounds.contact})` }}
     >
       <div className="what-we-produce-container">
         <div className="what-we-produce-header">

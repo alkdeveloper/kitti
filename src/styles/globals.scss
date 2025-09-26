@@ -129,7 +129,6 @@ body {
     }
   }
 
-  // Mobile responsive
   @media (max-width: 992px) {
     .container {
       padding: 0 1rem;
@@ -1572,7 +1571,7 @@ main {
   padding: 100px 50px;
 
   @media (max-width: 992px) {
-    padding: 60px 20px; // mobilde daha rahat
+    padding: 60px 20px;
   }
 
   .categories-secondary-container {
@@ -1983,7 +1982,7 @@ main {
         }
 
         input {
-          display: none; // native checkbox gizleniyor
+          display: none;  
         }
 
         .custom-checkbox {
@@ -2069,7 +2068,7 @@ main {
     width: 100%;
 
     @media (max-width: 992px) {
-      grid-template-columns: 1fr; // Kartları alt alta getir
+      grid-template-columns: 1fr;
       gap: 30px;
     }
 
@@ -3189,4 +3188,13 @@ main {
       padding: 12px 30px;
     }
   }
+}
+
+
+.error-message{
+  color: red;
+}
+
+.success-message{
+  color: green;
 }
