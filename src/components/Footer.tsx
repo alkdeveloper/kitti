@@ -2,9 +2,14 @@
 
 import React from "react";
 
-const Footer: React.FC = () => {
+interface FooterProps {
+    theme?: string; 
+  }
+  
+
+const Footer: React.FC<FooterProps> = ({ theme }) => {
   return (
-    <footer className="footer">
+    <footer className={`footer ${theme}`}>
       <div className="footer-inner">
         {/* Linkler */}
         <div className="footer-links">

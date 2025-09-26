@@ -33,8 +33,8 @@ const Header: React.FC<HeaderProps> = ({ theme = "primary" }) => {
               <li><a href="/" className="nav-link">Anasayfa</a></li>
               <li><a href="/products" className="nav-link">Ürünler</a></li>
               <li><a href="/hikayemiz" className="nav-link">Hikayemiz</a></li>
-              <li><a href="/iletisim" className="nav-link">İletişim</a></li>
-              <li><a href="/toptan" className="nav-link">Toptan Portal</a></li>
+              <li><a href="/contact" className="nav-link">İletişim</a></li>
+              <li><a href="/toptan-portal" className="nav-link">Toptan Portal</a></li>
             </ul>
           </nav>
           

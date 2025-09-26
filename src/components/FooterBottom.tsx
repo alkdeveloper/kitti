@@ -1,10 +1,13 @@
 "use client";
 
 import React from "react";
+interface FooterBottomProps {
+  theme?: string;
+}
 
-const FooterBottom: React.FC = () => {
+const FooterBottom: React.FC<FooterBottomProps> = ({ theme }) => {
   return (
-    <div className="footer-bottom">
+    <div className={`footer-bottom ${theme}`}>
       <div className="footer-bottom-left">
         <svg
           xmlns="http://www.w3.org/2000/svg"
