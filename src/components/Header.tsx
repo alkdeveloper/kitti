@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 
 interface HeaderProps {
   theme?: string; // herhangi string kabul edilecek
@@ -30,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ theme = "primary" }) => {
           
           <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>
             <ul className="nav-list">
-              <li><a href="/" className="nav-link">Anasayfa</a></li>
+              <li><Link href="/" className="nav-link">Anasayfa</Link></li>
               <li><a href="/products" className="nav-link">Ürünler</a></li>
               <li><a href="/hikayemiz" className="nav-link">Hikayemiz</a></li>
               <li><a href="/contact" className="nav-link">İletişim</a></li>

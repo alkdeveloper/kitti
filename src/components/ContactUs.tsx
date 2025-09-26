@@ -34,7 +34,7 @@ const ContactForm: React.FC = () => {
               {checkbox1 && <div className="checkmark">✓</div>}
             </div>
             <span>
-              <b>Bilgilendirme ve Aydınlatma Metni</b>'ni okudum kabul ediyorum.
+              <b>Bilgilendirme ve Aydınlatma Metni</b>&apos;ni okudum kabul ediyorum.
             </span>
           </label>
 
