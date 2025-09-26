@@ -1,13 +1,15 @@
 "use client";
 
 import React from "react";
-import { contentData } from "@/data/content";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const ContactCards: React.FC = () => {
+  const { t } = useLanguage();
+  
   return (
     <section className="contact-cards">
       <div className="cards-container">
-        {contentData.contactCards.cards.map((card, index) => (
+        {t.contactCards.cards.map((card, index) => (
           <div key={index} className="contact-card">
             <div className="card-content">
               <p className="address">{card.address}</p>
@@ -42,8 +44,8 @@ const ContactCards: React.FC = () => {
 
       {/* Bottom Mail */}
       <div className="contact-mail">
-        <p>{contentData.contactCards.email.sales}</p>
-        <p>{contentData.contactCards.email.website}</p>
+        <p>{t.contactCards.email.sales}</p>
+        <p>{t.contactCards.email.website}</p>
       </div>
     </section>
   );

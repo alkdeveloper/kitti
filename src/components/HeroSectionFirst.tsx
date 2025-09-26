@@ -1,10 +1,12 @@
 "use client";
 
 import React from "react";
-import { contentData } from "@/data/content";
+import { useLanguage } from '@/contexts/LanguageContext';
 import { imageAssets, IMAGE_PATHS } from "@/data/images";
+import { contentData } from "@/data/content";
 
 const HeroSection: React.FC = () => {
+  const { t } = useLanguage();
   return (
     <section className="hero-section">
       <div className="hero-container">
@@ -22,16 +24,16 @@ const HeroSection: React.FC = () => {
         <div className="hero-content">
           <div className="hero-logo">
             <div dangerouslySetInnerHTML={{ __html: contentData.heroLogoSvg }} />
-            <h1 className="hero-title">{contentData.heroSectionFirst.title}</h1>
+            <h1 className="hero-title">{t.heroSectionFirst.title}</h1>
           </div>
 
           <div className="hero-text">
-            {contentData.heroSectionFirst.description.map((text, index) => (
+            {t.heroSectionFirst.description.map((text, index) => (
               <p key={index}>{text}</p>
             ))}
           </div>
 
-          <button className="hero-button">{contentData.heroSectionFirst.buttonText}</button>
+          <button className="hero-button">{t.heroSectionFirst.buttonText}</button>
         </div>
       </div>
     </section>

@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { contentData } from "@/data/content";
+    import { useLanguage } from '@/contexts/LanguageContext';
 import { IMAGE_PATHS } from "@/data/images";
 
 const ContactForm: React.FC = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -71,10 +72,12 @@ const ContactForm: React.FC = () => {
       }}
     >
       <div className="contact-container">
-        <h2 className="contact-title">{contentData.contactUs.title}</h2>
-        <p className="contact-description">
-          {contentData.contactUs.description}
-        </p>
+        <h2 className="contact-title">{t.contactUs.title}</h2>
+        <div className="contact-description">
+          {t.contactUs.description.map((text, index) => (
+            <p key={index}>{text}</p>
+          ))}
+        </div>
 
         <form className="contact-form" onSubmit={handleSubmit}>
           <input
@@ -82,7 +85,7 @@ const ContactForm: React.FC = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            placeholder={contentData.contactUs.form.namePlaceholder}
+            placeholder={t.contactUs.form.name}
             className="contact-input"
           />
           <input
@@ -90,7 +93,7 @@ const ContactForm: React.FC = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder={contentData.contactUs.form.emailPlaceholder}
+            placeholder={t.contactUs.form.email}
             className="contact-input"
           />
           <input
@@ -98,14 +101,14 @@ const ContactForm: React.FC = () => {
             name="subject"
             value={formData.subject}
             onChange={handleChange}
-            placeholder={contentData.contactUs.form.subjectPlaceholder}
+            placeholder={t.contactUs.form.phone}
             className="contact-input"
           />
           <textarea
             name="message"
             value={formData.message}
             onChange={handleChange}
-            placeholder={contentData.contactUs.form.messagePlaceholder}
+            placeholder={t.contactUs.form.message}
             className="contact-textarea"
           />
 
@@ -120,7 +123,7 @@ const ContactForm: React.FC = () => {
             </div>
             <span
               dangerouslySetInnerHTML={{
-                __html: contentData.contactUs.form.checkbox1Text.replace(
+                __html: t.contactUs.form.checkbox1.replace(
                   "Bilgilendirme ve Aydınlatma Metni",
                   "<b>Bilgilendirme ve Aydınlatma Metni</b>"
                 ),
@@ -139,7 +142,7 @@ const ContactForm: React.FC = () => {
             </div>
             <span
               dangerouslySetInnerHTML={{
-                __html: contentData.contactUs.form.checkbox2Text.replace(
+                __html: t.contactUs.form.checkbox2.replace(
                   "elektronik ileti",
                   "<b>elektronik ileti</b>"
                 ),
@@ -148,7 +151,7 @@ const ContactForm: React.FC = () => {
           </label>
 
           <button type="submit" className="contact-button" disabled={loading}>
-            {loading ? "Gönderiliyor..." : contentData.contactUs.form.buttonText}
+            {loading ? "Gönderiliyor..." : t.contactUs.form.button}
           </button>
 
           {error && <p className="error-message" style={{ color: "red", marginTop: "8px" }}>{error}</p>}

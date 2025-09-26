@@ -16,6 +16,12 @@ body {
   font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color: #2C2C2C;
   line-height: 1.6;
+  overflow-x: hidden;
+}
+
+// Global button styles
+button, .button, [role="button"] {
+  cursor: pointer;
 }
 
 .header {
@@ -47,6 +53,17 @@ body {
   }
 
   .logo {
+    a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+      
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+    
     svg {
       width: 76px;
       width: auto;
@@ -71,7 +88,7 @@ body {
         font-style: normal;
         font-weight: 500;
         line-height: 100%;
-        transition: color 0.3s ease;
+        transition: all 0.3s ease;
 
         @media (max-width: 992px) {
           font-size: 18px;
@@ -79,6 +96,7 @@ body {
 
         &:hover {
           color: #D4A574;
+          transform: translateY(-1px);
         }
       }
     }
@@ -90,6 +108,8 @@ body {
     gap: 1rem;
 
     .language-link {
+      background: none;
+      border: none;
       text-decoration: none;
       color: #806144;
       font-family: var(--font-poppins), Poppins, sans-serif;
@@ -97,8 +117,9 @@ body {
       font-style: normal;
       font-weight: 500;
       line-height: 100%;
-      transition: color 0.3s ease;
-
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.3s ease;
 
       @media (max-width: 992px) {
         font-size: 18px;
@@ -106,6 +127,7 @@ body {
 
       &:hover {
         color: #D4A574;
+        transform: translateY(-1px);
       }
     }
 
@@ -115,16 +137,20 @@ body {
       border: none;
       cursor: pointer;
       padding: 0.5rem;
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
 
       svg {
         width: 36px;
         height: 27px;
-        transition: transform 0.3s ease;
+        transition: all 0.3s ease;
       }
 
       &:hover {
         transform: scale(1.1);
+        
+        svg {
+          opacity: 0.7;
+        }
       }
     }
   }
@@ -135,6 +161,17 @@ body {
     }
 
     .logo {
+      a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        transition: transform 0.3s ease;
+        
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+      
       svg {
         height: 2.5rem;
       }
@@ -374,6 +411,15 @@ main {
         font-weight: 600;
         line-height: 100%;
         background-color: transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #2E6193;
+          color: white;
+          border-color: #2E6193;
+          transform: translateY(-2px);
+        }
 
         @media(max-width: 992px) {
           display: none;
@@ -513,6 +559,15 @@ main {
         font-weight: 500;
         line-height: 100%;
         background-color: transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #2E6193;
+          color: white;
+          border-color: #2E6193;
+          transform: translateY(-2px);
+        }
 
         @media(max-width: 992px) {
           display: none;
@@ -708,6 +763,15 @@ main {
     font-weight: 600;
     line-height: 100%;
     background-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #2E6193;
+      color: white;
+      border-color: #2E6193;
+      transform: translateY(-2px);
+    }
 
     @media(max-width: 992px) {
       display: none;
@@ -965,6 +1029,15 @@ main {
     font-weight: 600;
     line-height: 100%;
     background-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #2E6193;
+      color: white;
+      border-color: #2E6193;
+      transform: translateY(-2px);
+    }
 
     @media(max-width: 992px) {
       display: none;
@@ -1118,6 +1191,15 @@ main {
     font-weight: 600;
     line-height: 100%;
     background-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #2E6193;
+      color: white;
+      border-color: #2E6193;
+      transform: translateY(-2px);
+    }
 
     @media(max-width: 992px) {
       display: none;
@@ -1137,14 +1219,19 @@ main {
   right: -2px;
   cursor: pointer;
   z-index: 1000;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.05) translateY(-2px);
+    
+    svg {
+      opacity: 0.8;
+    }
   }
 
   svg {
     width: 130px;
+    transition: all 0.3s ease;
 
     @media(max-width: 992px) {
       width: 70px;
@@ -1232,6 +1319,12 @@ main {
       font-weight: 500;
       text-decoration: none;
       line-height: 200%;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: #BD631F;
+        transform: translateY(-1px);
+      }
 
       @media(max-width: 992px) {
         font-size: 14px;
@@ -1745,6 +1838,13 @@ main {
       font-weight: 600;
       background-color: transparent;
       cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #BD631F;
+        color: white;
+        transform: translateY(-2px);
+      }
 
       @media (max-width: 992px) {
         font-size: 16px;
@@ -2038,6 +2138,14 @@ main {
         background-color: transparent;
         cursor: pointer;
         padding: 25px;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #2E6193;
+          color: white;
+          border-color: #2E6193;
+          transform: translateY(-2px);
+        }
 
         @media (max-width: 992px) {
           font-size: 18px;
@@ -2383,6 +2491,15 @@ main {
           font-size: 20px;
           font-weight: 600;
           line-height: 100%;
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background-color: #2E6193;
+            color: white;
+            border-color: #2E6193;
+            transform: translateY(-2px);
+          }
 
           @media (max-width: 992px) {
             font-size: 18px;
@@ -2735,6 +2852,15 @@ main {
         font-size: 24px;
         font-weight: 600;
         background-color: transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #2E6193;
+          color: white;
+          border-color: #2E6193;
+          transform: translateY(-2px);
+        }
 
         @media (max-width: 992px) {
           min-width: 220px;
@@ -3179,8 +3305,10 @@ main {
     transition: all 0.3s ease;
 
     &:hover {
-      background: #BD631F;
+      background: #2E6193;
       color: white;
+      border-color: #2E6193;
+      transform: translateY(-2px);
     }
 
     @media(max-width: 768px) {
@@ -3197,4 +3325,61 @@ main {
 
 .success-message{
   color: green;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #D4A574;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(5px);
+}
+
+.loading-logo {
+  text-align: center;
+  
+  svg {
+    animation: logoZoom 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes logoZoom {
+  0% { 
+    transform: scale(1);
+  }
+  50% { 
+    transform: scale(1.1);
+  }
+  100% { 
+    transform: scale(1);
+  }
+}
+
+// Page Fade Animation
+.page-fade-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.page-fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-fade-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }

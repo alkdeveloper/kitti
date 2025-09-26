@@ -1,4 +1,6 @@
+"use client";
 import React from "react";
+import { useLanguage } from '@/contexts/LanguageContext';
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Slider from "@/components/Slider";
@@ -15,35 +17,37 @@ import prodImage2 from "@/images/product-image-2.png";
 import prodImage3 from "@/images/product-image-3.png";
 
 export default function ProductsPage() {
+  const { t } = useLanguage();
+  
   const categories = [
     {
       id: 1,
-      category: "Kışlık Bereler",
+      category: t.products.categories.items[0],
       images: [prodImage1.src, prodImage2.src, prodImage3.src],
     },
     {
       id: 2,
-      category: "Renkli Eldivenler",
+      category: t.products.categories.items[1],
       images: [prodImage2.src, prodImage3.src, prodImage1.src],
     },
     {
       id: 3,
-      category: "Sevimli Atkılar",
+      category: t.products.categories.items[2],
       images: [prodImage3.src, prodImage1.src, prodImage2.src],
     },
     {
       id: 4,
-      category: "Hayvan Şapkaları",
+      category: t.products.categories.items[3],
       images: [prodImage1.src, prodImage2.src, prodImage3.src],
     },
     {
       id: 5,
-      category: "Balaklava Şapkalar",
+      category: t.products.categories.items[4],
       images: [prodImage2.src, prodImage3.src, prodImage1.src],
     },
     {
       id: 6,
-      category: "Pilot Bereler",
+      category: t.products.categories.items[5],
       images: [prodImage3.src, prodImage1.src, prodImage2.src],
     },
   ];
@@ -51,47 +55,42 @@ export default function ProductsPage() {
   const categoriesSecondary = [
     {
       id: 1,
-      title: "Tesettür Mayo",
-      description:
-        "Sezonun en sevilen çocuk aksesuarlarını tasarlar, üretir ve Türkiye'nin dört bir yanına ulaştırırız.",
+      title: t.products.productDetails.title,
+      description: t.products.productDetails.description,
       images: [prodImage1.src, prodImage2.src, prodImage3.src],
-      alt: "Tesettür Mayo",
+      alt: t.products.productDetails.title,
     },
     {
       id: 2,
-      title: "Tesettür Mayo",
-      description:
-        "Sezonun en sevilen çocuk aksesuarlarını tasarlar, üretir ve Türkiye'nin dört bir yanına ulaştırırız.",
+      title: t.products.productDetails.title,
+      description: t.products.productDetails.description,
       images: [prodImage2.src, prodImage3.src, prodImage1.src],
-      alt: "Tesettür Mayo",
+      alt: t.products.productDetails.title,
     },
     {
       id: 3,
-      title: "Tesettür Mayo",
-      description:
-        "Sezonun en sevilen çocuk aksesuarlarını tasarlar, üretir ve Türkiye'nin dört bir yanına ulaştırırız.",
+      title: t.products.productDetails.title,
+      description: t.products.productDetails.description,
       images: [prodImage3.src, prodImage1.src, prodImage2.src],
-      alt: "Tesettür Mayo",
+      alt: t.products.productDetails.title,
     },
   ];
 
   const categoriesThird = [
     {
       id: 1,
-      title: "Tesettür Mayo",
-      description:
-        "Ürün detayları, pamuk, polyester, mekanizmalı, katlamalı ve daha bir çok vs 4-5 satırlık bilgi verilebilecek alan için ayrılmıştır.",
+      title: t.products.productDetails.title,
+      description: t.products.productDetails.details,
       images: [prodImage1.src, prodImage2.src, prodImage3.src],
-      alt: "Tesettür Mayo",
+      alt: t.products.productDetails.title,
       backgroundColor: "#FFF",
     },
     {
       id: 2,
-      title: "Tesettür Mayo",
-      description:
-        "Ürün detayları, pamuk, polyester, mekanizmalı, katlamalı ve daha bir çok vs 4-5 satırlık bilgi verilebilecek alan için ayrılmıştır.",
+      title: t.products.productDetails.title,
+      description: t.products.productDetails.details,
       images: [prodImage2.src, prodImage3.src, prodImage1.src],
-      alt: "Tesettür Mayo",
+      alt: t.products.productDetails.title,
       backgroundColor: "#FACBA2",
     },
   ];
@@ -99,20 +98,18 @@ export default function ProductsPage() {
   const categoriesFourth = [
     {
       id: 1,
-      title: "Tesettür Mayo",
-      description:
-        "Ürün detayları, pamuk, polyester, mekanizmalı, katlamalı ve daha bir çok vs 4-5 satırlık bilgi verilebilecek alan için ayrılmıştır.",
+      title: t.products.productDetails.title,
+      description: t.products.productDetails.details,
       images: [prodImage1.src, prodImage2.src, prodImage3.src],
-      alt: "Tesettür Mayo",
+      alt: t.products.productDetails.title,
       backgroundColor: "#FFF",
     },
     {
       id: 2,
-      title: "Tesettür Mayo",
-      description:
-        "Ürün detayları, pamuk, polyester, mekanizmalı, katlamalı ve daha bir çok vs 4-5 satırlık bilgi verilebilecek alan için ayrılmıştır.",
+      title: t.products.productDetails.title,
+      description: t.products.productDetails.details,
       images: [prodImage2.src, prodImage3.src, prodImage1.src],
-      alt: "Tesettür Mayo",
+      alt: t.products.productDetails.title,
       backgroundColor: "#F5E6D3",
     },
   ];
@@ -120,29 +117,26 @@ export default function ProductsPage() {
   const categoriesFifth = [
     {
       id: 1,
-      title: "Tesettür Mayo",
-      description:
-        "Ürün detayları, pamuk, polyester, mekanizmalı, katlamalı ve daha bir çok vs 4-5 satırlık bilgi verilebilecek alan için ayrılmıştır.",
+      title: t.products.productDetails.title,
+      description: t.products.productDetails.details,
       images: [prodImage1.src, prodImage2.src, prodImage3.src],
-      alt: "Tesettür Mayo",
+      alt: t.products.productDetails.title,
       backgroundColor: "#FFF",
     },
     {
       id: 2,
-      title: "Tesettür Mayo",
-      description:
-        "Ürün detayları, pamuk, polyester, mekanizmalı, katlamalı ve daha bir çok vs 4-5 satırlık bilgi verilebilecek alan için ayrılmıştır.",
+      title: t.products.productDetails.title,
+      description: t.products.productDetails.details,
       images: [prodImage2.src, prodImage3.src, prodImage1.src],
-      alt: "Tesettür Mayo",
+      alt: t.products.productDetails.title,
       backgroundColor: "#FFF",
     },
     {
       id: 3,
-      title: "Tesettür Mayo",
-      description:
-        "Ürün detayları, pamuk, polyester, mekanizmalı, katlamalı ve daha bir çok vs 4-5 satırlık bilgi verilebilecek alan için ayrılmıştır.",
+      title: t.products.productDetails.title,
+      description: t.products.productDetails.details,
       images: [prodImage2.src, prodImage3.src, prodImage1.src],
-      alt: "Tesettür Mayo",
+      alt: t.products.productDetails.title,
       backgroundColor: "#FFF",
     },
   ];
@@ -152,39 +146,39 @@ export default function ProductsPage() {
       <Header theme="white" />
       <Slider
         slides={[
-          { id: 1, image: p1.src, alt: "Şapka" },
-          { id: 2, image: p1.src, alt: "Atkı" },
-          { id: 3, image: p1.src, alt: "Eldiven" },
+          { id: 1, image: p1.src, alt: t.products.slider.slides[0].alt },
+          { id: 2, image: p1.src, alt: t.products.slider.slides[1].alt },
+          { id: 3, image: p1.src, alt: t.products.slider.slides[2].alt },
         ]}
       />
       <Categories
-        title="KATEGORİLER"
-        description="Sezonun en sevilen çocuk aksesuarlarını tasarlar, üretir ve Türkiye'nin dört bir yanına ulaştırırız."
+        title={t.products.categories.title}
+        description={t.products.categories.description}
         categories={categories}
       />
       <Categories
-        title="KATEGORİLER"
-        description="Sezonun en sevilen çocuk aksesuarlarını tasarlar, üretir ve Türkiye'nin dört bir yanına ulaştırırız."
+        title={t.products.categories.title}
+        description={t.products.categories.description}
         categories={categories}
       />
       <CategoriesSecondary
-        title="KATEGORİLER"
-        description="Sezonun en sevilen çocuk aksesuarlarını tasarlar, üretir ve Türkiye'nin dört bir yanına ulaştırırız."
+        title={t.products.categories.title}
+        description={t.products.categories.description}
         categories={categoriesSecondary}
       />
       <CategoryThird
-        title="KATEGORİLER"
-        description="Sezonun en sevilen çocuk aksesuarlarını tasarlar, üretir ve Türkiye'nin dört bir yanına ulaştırırız."
+        title={t.products.categories.title}
+        description={t.products.categories.description}
         categories={categoriesThird}
       />
       <CategoriesFourth
-        title="KATEGORİLER"
-        description="Sezonun en sevilen çocuk aksesuarlarını tasarlar, üretir ve Türkiye'nin dört bir yanına ulaştırırız."
+        title={t.products.categories.title}
+        description={t.products.categories.description}
         categories={categoriesFourth}
       />
       <CategoriesFifth
-        title="KATEGORİLER"
-        description="Sezonun en sevilen çocuk aksesuarlarını tasarlar, üretir ve Türkiye'nin dört bir yanına ulaştırırız."
+        title={t.products.categories.title}
+        description={t.products.categories.description}
         categories={categoriesFifth}
       />
 

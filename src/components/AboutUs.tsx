@@ -1,10 +1,12 @@
 "use client";
 
 import React from "react";
-import { contentData } from "@/data/content";
+import { useLanguage } from '@/contexts/LanguageContext';
 import { imageAssets, IMAGE_PATHS } from "@/data/images";
 
 const AboutUs: React.FC = () => {
+  const { t } = useLanguage();
+  
   return (
     <section
       className="about-us-section"
@@ -12,8 +14,8 @@ const AboutUs: React.FC = () => {
         backgroundImage: `url(${IMAGE_PATHS.CONTENT_WHO_WE_ARE})`,
       }}
     >
-      <h4 className="about-us-subtitle">{contentData.aboutUs.subtitle}</h4>
-      <h2 className="about-us-title">{contentData.aboutUs.title}</h2>
+      <h4 className="about-us-subtitle">{t.aboutUs.subtitle}</h4>
+      <h2 className="about-us-title">{t.aboutUs.title}</h2>
 
       <div className="about-us-map">
         <img 
@@ -22,7 +24,7 @@ const AboutUs: React.FC = () => {
         />
       </div>
 
-      {contentData.aboutUs.description.map((text, index) => (
+      {t.aboutUs.description.map((text, index) => (
         <p key={index} className="about-us-text">
           {text}
         </p>

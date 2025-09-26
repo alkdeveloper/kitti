@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useLanguage } from '@/contexts/LanguageContext';
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSectionFirst";
 import ProductCards from "@/components/ProductCards";
@@ -18,6 +19,8 @@ import pageImage from "@/images/atolyeden-dunyaya.gif";
 
 
 const HomePage: React.FC = () => {
+  const { t } = useLanguage();
+  
   return (
     <>
       <Header />
@@ -32,10 +35,10 @@ const HomePage: React.FC = () => {
         <ProductCards />
         <AboutUs />
         <ImageWText
-          subtitle="Atölyeden Dünyaya"
-          title="GÜÇLÜ ÜRETİM KAPASİTESİ"
-          text="Kitti, 2.000 adetten <b>milyonlarca adede ulaşan üretim kapasitesi</b>yle farklı pazarlara hizmet veriyor. <br /><br /> %50 çocuk, %30 erkek, %20 kadın aksesuarlarından oluşan koleksiyonlarımız; İngiltere, Sırbistan, Rusya ve daha bir çok ülkeye ihraç ediliyor."
-          buttonText="Bizimle toptan çalışın"
+          subtitle={t.homePage.imageWText.subtitle}
+          title={t.homePage.imageWText.title}
+          text={t.homePage.imageWText.text}
+          buttonText={t.homePage.imageWText.buttonText}
           backgroundImage={bgImage.src}
           contentImage={pageImage.src}
           imageAlt="Production Capacity"

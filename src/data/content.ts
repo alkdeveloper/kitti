@@ -1,4 +1,9 @@
 export const contentData = {
+  language: {
+    current: "tr", 
+    available: ["tr", "en"]
+  },
+
   storyHero: {
     title: {
       small: "Minik kafalar için",

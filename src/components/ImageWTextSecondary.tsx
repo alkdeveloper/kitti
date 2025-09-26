@@ -1,25 +1,26 @@
 "use client";
 
 import React from "react";
-import { contentData } from "@/data/content";
+import { useLanguage } from '@/contexts/LanguageContext';
 import { imageAssets, IMAGE_PATHS } from "@/data/images";
 
 const ImageWTextSecondary: React.FC = () => {
+  const { t } = useLanguage();
   return (
     <section
       className="image-w-text-section-secondary"
-      style={{
+      style={{    
         backgroundImage: `url(${IMAGE_PATHS.BG_ATOLYEDEN_DUNYAYA})`,
       }}
     >
       <div className="image-w-text-content">
         <h4 className="image-w-text-subtitle">
-          {contentData.imageWTextSecondary.subtitle}
+          {t.imageWTextSecondary.subtitle}
         </h4>
-        <h2 className="image-w-text-title">{contentData.imageWTextSecondary.title}</h2>
+        <h2 className="image-w-text-title">{t.imageWTextSecondary.title}</h2>
 
         <div className="image-w-text-text">
-          {contentData.imageWTextSecondary.description.map((text, index) => (
+          {t.imageWTextSecondary.description.map((text, index) => (
             <React.Fragment key={index}>
               {text === "" ? (
                 <br />
@@ -28,13 +29,13 @@ const ImageWTextSecondary: React.FC = () => {
               ) : (
                 text
               )}
-              {index < contentData.imageWTextSecondary.description.length - 1 && <br />}
+              {index < t.imageWTextSecondary.description.length - 1 && <br />}
             </React.Fragment>
           ))}
         </div>
 
         <div className="image-w-text-buttons-ctr">
-          {contentData.imageWTextSecondary.buttons.map((button, index) => (
+          {t.imageWTextSecondary.buttons.map((button, index) => (
             <button key={index} className="image-w-text-button">
               {button.text}
             </button>
@@ -49,7 +50,7 @@ const ImageWTextSecondary: React.FC = () => {
         />
       </div>
       <div className="image-w-text-text-mobile">
-        {contentData.imageWTextSecondary.mobileDescription.map((text, index) => (
+        {t.imageWTextSecondary.mobileDescription.map((text, index) => (
           <React.Fragment key={index}>
             {text === "" ? (
               <br />
@@ -58,10 +59,10 @@ const ImageWTextSecondary: React.FC = () => {
             ) : (
               text
             )}
-            {index < contentData.imageWTextSecondary.mobileDescription.length - 1 && <br />}
+            {index < t.imageWTextSecondary.mobileDescription.length - 1 && <br />}
           </React.Fragment>
         ))}
-        {contentData.imageWTextSecondary.buttons.map((button, index) => (
+        {t.imageWTextSecondary.buttons.map((button, index) => (
           <button key={index} className="image-w-text-button mobile-show">
             {button.text}
           </button>

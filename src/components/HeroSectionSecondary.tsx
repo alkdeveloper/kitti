@@ -1,12 +1,14 @@
 "use client";
 
 import React from "react";
-import { contentData } from "@/data/content";
+import { useLanguage } from '@/contexts/LanguageContext';
 import { imageAssets, IMAGE_PATHS } from "@/data/images";
 
 const HeroSectionSecondary: React.FC = () => {
+  const { t } = useLanguage();
+  
   return (
-    <section className="hero-section-secondary">
+    <section className="hero-section-secondary">  
       <div className="hero-container">
         <img
           src={IMAGE_PATHS.CONTENT_HERO_SECONDARY_BACKGROUND}
@@ -21,12 +23,12 @@ const HeroSectionSecondary: React.FC = () => {
         />
         <div className="hero-content">
           <div className="hero-logo">
-            <h2 className="hero-subtitle">{contentData.heroSectionSecondary.subtitle}</h2>
-            <h1 className="hero-title">{contentData.heroSectionSecondary.title}</h1>
+            <h2 className="hero-subtitle">{t.heroSectionSecondary.subtitle}</h2>
+            <h1 className="hero-title">{t.heroSectionSecondary.title}</h1>
           </div>
 
           <div className="hero-text">
-            {contentData.heroSectionSecondary.description.map((text, index) => (
+            {t.heroSectionSecondary.description.map((text, index) => (
               <p key={index}>{text}</p>
             ))}
           </div>

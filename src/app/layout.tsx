@@ -1,6 +1,9 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Inter, Caveat, Poppins } from "next/font/google";
 import "./globals.scss";
+import { LanguageProvider, useLanguage } from "@/contexts/LanguageContext";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -18,10 +21,18 @@ const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
 });
 
-export const metadata: Metadata = {
-  title: "Kitti - Çocuk Aksesuarları",
-  description: "Çocuklar için kaliteli ve şık şapka, eldiven ve atkı koleksiyonları",
-};
+function LayoutContent({ children }: { children: React.ReactNode }) {
+  const { isLoading } = useLanguage();
+  
+  return (
+    <>
+      <LoadingSpinner isLoading={isLoading} />
+      <div className={isLoading ? 'page-fade-enter' : 'page-fade-enter-active'}>
+        {children}
+      </div>
+    </>
+  );
+}
 
 export default function RootLayout({
   children,
@@ -33,7 +44,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${caveat.variable} ${poppins.variable} antialiased`}
       >
-        {children}
+        <LanguageProvider>
+          <LayoutContent>
+            {children}
+          </LayoutContent>
+        </LanguageProvider>
       </body>
     </html>
   );

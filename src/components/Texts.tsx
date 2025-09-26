@@ -1,20 +1,23 @@
 "use client";
 
 import React from "react";
+import { useLanguage } from '@/contexts/LanguageContext';
 import bgImage from "@/images/toptan-portal.png";
+
 const Texts: React.FC = () => {
+  const { t } = useLanguage();
+  
   return (
     <section className="texts-section" style={{
       backgroundImage: `url(${bgImage.src})`,
     }}>
       <div className="texts-container">
-        <h2 className="texts-title">Kobiler için Toptan Portal</h2>
+        <h2 className="texts-title">{t.texts.title}</h2>
         <p className="texts-description">
-          B2B toptan portal ile adeti düşük olan siparişlerinizi toptan portaldan
-          verebilir, iş yerinize kargolatabilirsiniz.
+          {t.texts.description}
         </p>
         <p className="texts-note">
-          *Portal, sadece kayıtlı iş ortaklarımızın kullanımına açıktır.
+          {t.texts.note}
         </p>
       </div>
     </section>
