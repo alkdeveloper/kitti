@@ -13,6 +13,9 @@ import ImageWTextSecondary from "@/components/ImageWTextSecondary";
 import Footer from "./Footer";
 import FooterBottom from "./FooterBottom";
 import ScrollToTop from "./ScrollToTop";
+import bgImage from "@/images/atolyeden-dunyaya-bg.png";
+import pageImage from "@/images/atolyeden-dunyaya.gif";
+
 
 const HomePage: React.FC = () => {
   return (
@@ -28,7 +31,19 @@ const HomePage: React.FC = () => {
         <HeroSection />
         <ProductCards />
         <AboutUs />
-        <ImageWText />
+        <ImageWText
+          subtitle="Atölyeden Dünyaya"
+          title="GÜÇLÜ ÜRETİM KAPASİTESİ"
+          text="Kitti, 2.000 adetten <b>milyonlarca adede ulaşan üretim kapasitesi</b>yle farklı pazarlara hizmet veriyor. <br /><br /> %50 çocuk, %30 erkek, %20 kadın aksesuarlarından oluşan koleksiyonlarımız; İngiltere, Sırbistan, Rusya ve daha bir çok ülkeye ihraç ediliyor."
+          buttonText="Bizimle toptan çalışın"
+          backgroundImage={bgImage.src}
+          contentImage={pageImage.src}
+          imageAlt="Production Capacity"
+          showButton={true}
+          reverse={false}
+          backgroundColor="#F5F5F5"
+          onButtonClick={() => console.log("Buton tıklandı!")}
+        />
         <HeroSectionSecondary />
         <ImageWTextSecondary />
       </main>

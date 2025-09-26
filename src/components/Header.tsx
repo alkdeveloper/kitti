@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 interface HeaderProps {
-  theme?: string; // herhangi string kabul edilecek
+  theme?: string; 
 }
 
 
@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({ theme = "primary" }) => {
             <ul className="nav-list">
               <li><Link href="/" className="nav-link">Anasayfa</Link></li>
               <li><a href="/products" className="nav-link">Ürünler</a></li>
-              <li><a href="/hikayemiz" className="nav-link">Hikayemiz</a></li>
+              <li><a href="/our-story" className="nav-link">Hikayemiz</a></li>
               <li><a href="/contact" className="nav-link">İletişim</a></li>
               <li><a href="/toptan-portal" className="nav-link">Toptan Portal</a></li>
             </ul>

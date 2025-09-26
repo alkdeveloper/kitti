@@ -1,42 +1,108 @@
 "use client";
 
 import React from "react";
-import bgImage from "@/images/atolyeden-dunyaya-bg.png";
-import pageImage from "@/images/atolyeden-dunyaya.gif";
 
-const ImageWText: React.FC = () => {
+interface ImageWTextProps {
+  subtitle: string;
+  title: string;
+  text: string;
+  buttonText?: string;
+  backgroundImage?: string;
+  contentImage: string;
+  imageAlt?: string;
+  showButton?: boolean;
+  onButtonClick?: () => void;
+  backgroundColor?: string;
+  reverse?: boolean;
+  subImage?: string;
+  subImageAlt?: string;
+  textColor?: string;
+}
+
+const ImageWText: React.FC<ImageWTextProps> = ({
+  subtitle,
+  title,
+  text,
+  buttonText = "Daha fazla bilgi",
+  backgroundImage,
+  contentImage,
+  imageAlt = "Content Image",
+  showButton = true,
+  onButtonClick,
+  reverse = false,
+  subImage,
+  backgroundColor = "#F5F5F5",
+  subImageAlt = "Sub Image",
+  textColor = "#BD631F",
+}) => {
+  const contentDiv = (
+    <div className="image-w-text-content" style={{ color: textColor }}>
+      {subImage && (
+        <div className="image-w-text-subimage">
+          <img src={subImage} alt={subImageAlt} />
+        </div>
+      )}
+
+      <h4 className="image-w-text-subtitle" style={{ color: textColor }}>{subtitle}</h4>
+      <h2 
+        className="image-w-text-title"
+        style={{ color: textColor }}
+        dangerouslySetInnerHTML={{ __html: title }}
+      />
+
+      <div
+        className="image-w-text-text"
+        style={{ color: textColor }}
+        dangerouslySetInnerHTML={{ __html: text }}
+      />
+
+      {showButton && (
+        <button
+          className="image-w-text-button"
+          style={{ color: textColor, borderColor: textColor }}
+          onClick={onButtonClick || (() => {})}
+        >
+          {buttonText}
+        </button>
+      )}
+    </div>
+  );
+
+  const imageDiv = (
+    <div className="image-w-text-visual">
+      <img src={contentImage} alt={imageAlt} />
+    </div>
+  );
+
   return (
     <section
-      className="image-w-text-section"
+      className={`image-w-text-section ${reverse ? "reverse" : ""}`}
       style={{
-        backgroundImage: `url(${bgImage.src})`,
+        backgroundImage: backgroundImage
+          ? `url(${backgroundImage})`
+          : undefined,
+        backgroundColor: backgroundColor ? backgroundColor : undefined,
       }}
     >
-      <div className="image-w-text-content">
-        <h4 className="image-w-text-subtitle">
-        Atölyeden Dünyaya
-        </h4>
-        <h2 className="image-w-text-title">GÜÇLÜ ÜRETİM KAPASİTESİ</h2>
+      <div className="image-w-text-container">
+        {reverse ? (
+          <>
+            {imageDiv}
+            {contentDiv}
+          </>
+        ) : (
+          <>
+            {contentDiv}
+            {imageDiv}
+          </>
+        )}
 
-        <div className="image-w-text-text">
-          Kitti, 2.000 adetten <b>milyonlarca adede ulaşan üretim kapasitesi</b>yle
-          farklı pazarlara hizmet veriyor. <br /><br /> %50 çocuk, %30 erkek, %20 kadın
-          aksesuarlarından oluşan koleksiyonlarımız; İngiltere, Sırbistan, Rusya
-          ve daha bir çok ülkeye ihraç ediliyor.
-        </div>
-
-        <button className="image-w-text-button">Bizimle toptan çalışın</button>
+        <div
+          className="image-w-text-text-mobile"
+          style={{ color: textColor }}
+          dangerouslySetInnerHTML={{ __html: text }}
+        />
       </div>
-
-      <div className="image-w-text-visual">
-        <img src={pageImage.src} alt="Production Capacity" />
-      </div>
-      <div className="image-w-text-text-mobile">
-          Kitti, 2.000 adetten <b>milyonlarca adede ulaşan üretim kapasitesi</b>yle
-          farklı pazarlara hizmet veriyor. <br /><br /> %50 çocuk, %30 erkek, %20 kadın
-          aksesuarlarından oluşan koleksiyonlarımız; İngiltere, Sırbistan, Rusya
-          ve daha bir çok ülkeye ihraç ediliyor.
-        </div>
     </section>
   );
 };
