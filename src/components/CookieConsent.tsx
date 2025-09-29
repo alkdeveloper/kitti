@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const CookieConsent: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -40,9 +40,9 @@ const CookieConsent: React.FC = () => {
     <div className={`cookie-consent ${isAnimating ? 'animate-in' : 'animate-out'}`}>
       <div className="cookie-content">
         <div className="cookie-text">
-          <h3>🍪 {t.language === 'tr' ? 'Çerezleri Kabul Ediyor musunuz?' : 'Do you accept cookies?'}</h3>
+          <h3>🍪 {language === 'tr' ? 'Çerezleri Kabul Ediyor musunuz?' : 'Do you accept cookies?'}</h3>
           <p>
-            {t.language === 'tr' ? (
+            {language === 'tr' ? (
               <>
                 Web sitemizde deneyiminizi iyileştirmek için çerezler kullanıyoruz. 
                 Detaylı bilgi için{' '}
@@ -69,13 +69,13 @@ const CookieConsent: React.FC = () => {
             onClick={handleReject}
             className="cookie-btn cookie-btn-reject"
           >
-            {t.language === 'tr' ? 'Reddet' : 'Reject'}
+            {language === 'tr' ? 'Reddet' : 'Reject'}
           </button>
           <button 
             onClick={handleAccept}
             className="cookie-btn cookie-btn-accept"
           >
-            {t.language === 'tr' ? 'Kabul Et' : 'Accept'}
+            {language === 'tr' ? 'Kabul Et' : 'Accept'}
           </button>
         </div>
       </div>
