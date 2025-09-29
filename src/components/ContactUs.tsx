@@ -119,14 +119,13 @@ const ContactForm: React.FC = () => {
               onChange={(e) => setCheckbox1(e.target.checked)}
             />
             <div className="custom-checkbox">
-              {checkbox1 && <div className="checkmark">✓</div>}
+              {checkbox1 && <div className="checkmark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z"/></svg>
+                </div>}
             </div>
             <span
               dangerouslySetInnerHTML={{
-                __html: t.contactUs.form.checkbox1.replace(
-                  "Bilgilendirme ve Aydınlatma Metni",
-                  "<b>Bilgilendirme ve Aydınlatma Metni</b>"
-                ),
+                __html: t.contactUs.form.checkbox1
               }}
             />
           </label>
@@ -138,14 +137,11 @@ const ContactForm: React.FC = () => {
               onChange={(e) => setCheckbox2(e.target.checked)}
             />
             <div className="custom-checkbox">
-              {checkbox2 && <div className="checkmark">✓</div>}
+              {checkbox2 && <div className="checkmark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z"/></svg></div>}
             </div>
             <span
               dangerouslySetInnerHTML={{
-                __html: t.contactUs.form.checkbox2.replace(
-                  "elektronik ileti",
-                  "<b>elektronik ileti</b>"
-                ),
+                __html: t.contactUs.form.checkbox2
               }}
             />
           </label>

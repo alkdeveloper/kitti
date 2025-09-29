@@ -22,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({ theme = "primary" }) => {
 
   return (
     <header className={`header ${theme}`}>
-      <div className="container">
+      <div className="container ">
         <div className="header-content">
           <div className="logo">
             <Link href="/">

@@ -29,7 +29,7 @@ const HeroSectionSecondary: React.FC = () => {
 
           <div className="hero-text">
             {t.heroSectionSecondary.description.map((text, index) => (
-              <p key={index}>{text}</p>
+              <p key={index} style={{marginBottom: index === t.heroSectionSecondary.description.length - 1 ? "0" : "10px"}} dangerouslySetInnerHTML={{ __html: text }} />
             ))}
           </div>
         </div>

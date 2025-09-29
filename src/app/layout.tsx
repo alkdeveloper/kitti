@@ -4,6 +4,7 @@ import { Inter, Caveat, Poppins } from "next/font/google";
 import "./globals.scss";
 import { LanguageProvider, useLanguage } from "@/contexts/LanguageContext";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import CookieConsent from "@/components/CookieConsent";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,6 +31,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
       <div className={isLoading ? 'page-fade-enter' : 'page-fade-enter-active'}>
         {children}
       </div>
+      <CookieConsent />
     </>
   );
 }

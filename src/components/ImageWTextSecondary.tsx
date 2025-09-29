@@ -11,6 +11,7 @@ const ImageWTextSecondary: React.FC = () => {
       className="image-w-text-section-secondary"
       style={{    
         backgroundImage: `url(${IMAGE_PATHS.BG_ATOLYEDEN_DUNYAYA})`,
+        backgroundColor: "#F5F5F5",
       }}
     >
       <div className="image-w-text-content">
@@ -24,12 +25,15 @@ const ImageWTextSecondary: React.FC = () => {
             <React.Fragment key={index}>
               {text === "" ? (
                 <br />
-              ) : text.includes("Büyük ölçekli") ? (
-                <b>{text}</b>
               ) : (
-                text
+                <span dangerouslySetInnerHTML={{ __html: text }} />
               )}
-              {index < t.imageWTextSecondary.description.length - 1 && <br />}
+              {index < t.imageWTextSecondary.description.length - 1 && (
+                <>
+                  <br />
+                  <br />
+                </>
+              )}
             </React.Fragment>
           ))}
         </div>
@@ -54,12 +58,15 @@ const ImageWTextSecondary: React.FC = () => {
           <React.Fragment key={index}>
             {text === "" ? (
               <br />
-            ) : text.includes("Büyük ölçekli") ? (
-              <b>{text}</b>
             ) : (
-              text
+              <span dangerouslySetInnerHTML={{ __html: text }} />
             )}
-            {index < t.imageWTextSecondary.mobileDescription.length - 1 && <br />}
+            {index < t.imageWTextSecondary.mobileDescription.length - 1 && (
+              <>
+                <br />
+                <br />
+              </>
+            )}
           </React.Fragment>
         ))}
         {t.imageWTextSecondary.buttons.map((button, index) => (

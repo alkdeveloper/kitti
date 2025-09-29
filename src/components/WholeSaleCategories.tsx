@@ -1,20 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
-import bgImage from "@/images/products-section-bg.png"
+import bgImage from "@/images/contact-bg.png"
 type Tab = {
   key: string;
   label: string;
   title: string;
-  paragraphs: string[];
+  paragraphs: string;
 };
 
-type WholesaleCategoriesProps = {
+type WholeSaleCategoriesProps = {
   tabs: Tab[];
   defaultActive?: string;
 };
 
-const WholesaleCategories: React.FC<WholesaleCategoriesProps> = ({
+const WholeSaleCategories: React.FC<WholeSaleCategoriesProps> = ({
   tabs,
   defaultActive,
 }) => {
@@ -25,6 +25,7 @@ const WholesaleCategories: React.FC<WholesaleCategoriesProps> = ({
   return (
     <section className="wholesale-section" style={{
         backgroundImage: `url(${bgImage.src})`,
+        backgroundColor: "#c9dbf4",
     }} >
       <div className="wholesale-logo">
         <svg
@@ -58,7 +59,6 @@ const WholesaleCategories: React.FC<WholesaleCategoriesProps> = ({
       </div>
 
       <div className="wholesale-card">
-        {/* Sol sekmeler */}
         <aside className="wholesale-tabs">
           {tabs.map((t) => {
             const isActive = t.key === active;
@@ -78,15 +78,12 @@ const WholesaleCategories: React.FC<WholesaleCategoriesProps> = ({
           <span aria-hidden className="corner-fix" />
         </aside>
 
-        {/* Sağ içerik */}
         <main className="wholesale-content">
           {activeTab && (
             <>
               <h3 className="content-title">{activeTab.title}</h3>
               <div className="content-body">
-                {activeTab.paragraphs.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
+                <p>{activeTab.paragraphs}</p>
               </div>
             </>
           )}
@@ -96,4 +93,4 @@ const WholesaleCategories: React.FC<WholesaleCategoriesProps> = ({
   );
 };
 
-export default WholesaleCategories;
+export default WholeSaleCategories;

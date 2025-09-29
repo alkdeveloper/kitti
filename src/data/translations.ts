@@ -36,7 +36,7 @@ export const translations = {
     // About Us
     aboutUs: {
       subtitle: "Atölyeden Dünyaya",
-      title: "Biz Kimiz?",
+      title: "TÜRKİYE’NİN DÖRT BİR YANINDA",
       description: [
         "Kitti, 1978'den beri tekstil sektöründe faaliyet gösteren ALK Group'un markalarından biridir.",
         "ALK Group; Kitti gibi bir çok markasıyla hem Türkiye'de hem dünyada milyonlara ulaşır."
@@ -95,36 +95,38 @@ export const translations = {
         phone: "Telefon Numaranız",
         message: "Mesajınız",
         button: "Gönder",
-        checkbox1: "Kişisel verilerimin işlenmesini kabul ediyorum.",
-        checkbox2: "Kampanya ve duyurular hakkında bilgilendirilmek istiyorum."
+        checkbox1: "<b>Bilgilendirme ve Aydınlatma Metni</b>'ni okudum kabul ediyorum.",
+        checkbox2: "Kampanyalardan haberdar olmak için <b>elektronik ileti</b> almak istiyorum."
       }
     },
 
     // Hero Section Secondary
     heroSectionSecondary: {
-      subtitle: "1978'den bu güne",
-      title: "Kitti Hikayesi",
+      subtitle: "1978’den bu güne",
+      title: "47+ Yıllık Deneyim",
       description: [
-        "Minik kafalar için büyük bir hikaye yazıyoruz.",
-        "Her ürünümüzde kalite, güvenlik ve sevgi var."
+        "Kitti, yalnızca çocuk aksesuarlarında değil; erkek ve kadın koleksiyonlarıyla da dünyanın birçok pazarında tercih ediliyor.",
+        "Bir çok ülkeye kadar genişleyen ihracat gücü, Kitti’yi global sahnede de güvenilir bir oyuncu haline getiriyo"
       ]
     },
 
     // Image W Text Secondary
     imageWTextSecondary: {
       subtitle: "Sipariş sürecini kolaylaştırıyoruz",
-      title: "Üretim Kapasitemiz",
+      title: "İş ortaklarımız için iki yol",
       description: [
-        "Modern tesislerimizde günlük binlerce ürün üretiyoruz.",
-        "Kaliteli hammaddeler ve uzman ekibimizle en iyisini sunuyoruz."
+        "Kitti, hem küçük işletmeler hem de büyük markalar için uygun sipariş modeli sunar.",
+        "Küçük ve orta ölçekli işletmeler, B2B portalımıza giriş yaparak ürünleri inceleyebilir, güncel koleksiyonlarımızı görebilir ve küçük adetli siparişlerini kolayca verebilir.",
+        "<b>Büyük ölçekli iş birlikleri için ise özel çözümler, esnek üretim planlaması ve güçlü lojistik ağımızla yanınızdayız.</b>"
       ],
       mobileDescription: [
-        "Modern tesislerimizde günlük binlerce ürün üretiyoruz.",
-        "Kaliteli hammaddeler ve uzman ekibimizle en iyisini sunuyoruz."
+        "Kitti, hem küçük işletmeler hem de büyük markalar için uygun sipariş modeli sunar.",
+        "Küçük ve orta ölçekli işletmeler, B2B portalımıza giriş yaparak ürünleri inceleyebilir, güncel koleksiyonlarımızı görebilir ve küçük adetli siparişlerini kolayca verebilir.",
+        "<b>Büyük ölçekli iş birlikleri için ise özel çözümler, esnek üretim planlaması ve güçlü lojistik ağımızla yanınızdayız.</b>"
       ],
       buttons: [
-        { text: "Detayları Gör" },
-        { text: "Ürün Kataloğu" }
+        { text: "Toptan Portal" },
+        { text: "İş Birliği için İletişim" }
       ]
     },
 
@@ -167,7 +169,15 @@ export const translations = {
       products: "Ürünler",
       contact: "İletişim",
       wholesale: "Toptan Satış",
-      rights: "Tüm hakları saklıdır."
+      rights: "Tüm hakları saklıdır.",
+      links: {
+        privacy: "Aydınlatma Metni",
+        consent: "İleti Onay Metni",
+        cookies: "Çerez Politikası"
+      },
+      social: {
+        text: "Yenilikleri kaçırmayın;"
+      }
     },
 
     // Register Component
@@ -275,6 +285,36 @@ export const translations = {
         description: "Sezonun en sevilen çocuk aksesuarlarını tasarlar, üretir ve Türkiye'nin dört bir yanına ulaştırırız.",
         details: "Ürün detayları, pamuk, polyester, mekanizmalı, katlamalı ve daha bir çok vs 4-5 satırlık bilgi verilebilecek alan için ayrılmıştır."
       }
+    },
+
+    // Wholesale Categories
+    wholesaleCategories: {
+      title: "Kışlık Eldiven Toptan Satış - Kitti",
+      categories: [
+        { name: "Kışlık Bere", active: false },
+        { name: "Kışlık Eldiven", active: true },
+        { name: "Kışlık Şapka", active: false },
+        { name: "Toptan Bere", active: false },
+        { name: "Toptan Eldiven", active: false },
+        { name: "Kışlık Kulaklık", active: false },
+        { name: "Kışlık Eşofman", active: false },
+        { name: "Kışlık Gözlük", active: false },
+        { name: "Kışlık Çorap", active: false },
+        { name: "Kışlık Şapka", active: false },
+        { name: "Toptan Eldiven", active: false },
+        { name: "Kışlık Kulaklık", active: false },
+        { name: "Kışlık Eşofman", active: false },
+        { name: "Kışlık Gözlük", active: false },
+        { name: "Kışlık Çorap", active: false },
+        { name: "Kışlık Şapka", active: false },
+      ],
+      content: {
+        description: [
+          "Kitti, yıllardan çocuk aksesuarları üreticisinin Türkiye'nin en çok tercih edilen markalarından biridir. Kış sezonu öncesi eldivenler, eldiven fiyat avantajıyla, kitti kışlık eldivenleri Türkiye'nin dört bir tarafına tercih edilmiş, durumsal yazılımlar, İngiltere, Sırbistan, Rusya gibi ülkelere de ihraç edilmektedir. İngilizce, Sırbistan, Rusya gibi ülkelerin toptan satış ve güvenlik fonk segmentleriyle çıkıyor.",
+          "Toptan satış avantajıyla, kitti kışlık eldivenleri değil, aynı zamanda erkek ve kadın eldivenleri ile de üretimi bulunmaktadır. Çocuklara yönelik, bu da bizil özellikle çocuk aksesuarları üretiminde güçlü bir konumlanma sağlar.",
+          "Kışlık eldiven toptan alımı yapmak isteyen iş ortaklarımız, kittinin B2B portalı üzerinden güncel koleksiyonlarımızı ulaşabilir, koleksiyonlarımızı ve fiyat listelerini inceleyebilir, sipariş verebilir, tamamlayabilir."
+        ]
+      }
     }
   },
 
@@ -315,7 +355,7 @@ export const translations = {
     // About Us
     aboutUs: {
       subtitle: "From Workshop to World",
-      title: "Who Are We?",
+      title: "ALL OVER TURKEY",
       description: [
         "Kitti is one of the brands of ALK Group, which has been operating in the textile sector since 1978.",
         "ALK Group reaches millions both in Turkey and around the world with many brands like Kitti."
@@ -374,32 +414,34 @@ export const translations = {
         phone: "Your Phone Number",
         message: "Your Message",
         button: "Send",
-        checkbox1: "I accept the processing of my personal data.",
-        checkbox2: "I want to be informed about campaigns and announcements."
+        checkbox1: "I have read and accept the <b>Privacy Policy</b>.",
+        checkbox2: "I want to receive <b>electronic communications</b> about campaigns."
       }
     },
 
     // Hero Section Secondary
     heroSectionSecondary: {
       subtitle: "From 1978 to today",
-      title: "Kitti Story",
+      title: "47+ Years of Experience",
       description: [
-        "We write a big story for little minds.",
-        "Every product has quality, safety and love."
+        "Kitti is preferred in many markets around the world not only in children's accessories but also with men's and women's collections.",
+        "The expanding export power to many countries makes Kitti a reliable player on the global stage."
       ]
     },
 
     // Image W Text Secondary
     imageWTextSecondary: {
       subtitle: "We make the ordering process easier",
-      title: "Our Production Capacity",
+      title: "TWO WAYS FOR OUR BUSINESS PARTNERS",
       description: [
-        "We produce thousands of products daily in our modern facilities.",
-        "We offer the best with quality raw materials and our expert team."
+        "Kitti offers a suitable ordering model for both small businesses and large brands.",
+        "Small and medium-sized businesses can log into our B2B portal to examine products, see our current collections, and easily place small quantity orders.",
+        "<b>For large-scale partnerships, we are with you with special solutions, flexible production planning and our strong logistics network.</b>"
       ],
       mobileDescription: [
-        "We produce thousands of products daily in our modern facilities.",
-        "We offer the best with quality raw materials and our expert team."
+        "Kitti offers a suitable ordering model for both small businesses and large brands.",
+        "Small and medium-sized businesses can log into our B2B portal to examine products, see our current collections, and easily place small quantity orders.",
+        "<b>For large-scale partnerships, we are with you with special solutions, flexible production planning and our strong logistics network.</b>"
       ],
       buttons: [
         { text: "See Details" },
@@ -446,7 +488,15 @@ export const translations = {
       products: "Products",
       contact: "Contact",
       wholesale: "Wholesale",
-      rights: "All rights reserved."
+      rights: "All rights reserved.",
+      links: {
+        privacy: "Privacy Policy",
+        consent: "Consent Form",
+        cookies: "Cookie Policy"
+      },
+      social: {
+        text: "Don't miss the updates;"
+      }
     },
 
     // Register Component
@@ -553,6 +603,31 @@ export const translations = {
         title: "Modest Swimwear",
         description: "We design, produce and deliver the most loved children's accessories of the season to all corners of Turkey.",
         details: "Product details, cotton, polyester, mechanical, foldable and many more vs 4-5 lines of information that can be given in the field reserved for this purpose."
+      }
+    },
+
+    // Wholesale Categories
+    wholesaleCategories: {
+      title: "Winter Gloves Wholesale - Kitti",
+      categories: [
+        { name: "Winter Beanies", active: false },
+        { name: "Winter Gloves", active: true },
+        { name: "Winter Hats", active: false },
+        { name: "Wholesale Beanies", active: false },
+        { name: "Wholesale Gloves", active: false },
+        { name: "Winter Earmuffs", active: false },
+        { name: "Winter Earmuffs", active: false },
+        { name: "Winter Earmuffs", active: false },
+        { name: "Winter Earmuffs", active: false },
+        { name: "Winter Earmuffs", active: false },
+        { name: "Winter Earmuffs", active: false },
+      ],
+      content: {
+        description: [
+          "Kitti is one of Turkey's most preferred brands as a children's accessories manufacturer for years. Before the winter season, gloves with price advantage, Kitti winter gloves are preferred throughout Turkey, and are also exported to countries like England, Serbia, Russia. They are exported to wholesale and security segments of countries like England, Serbia, Russia.",
+          "With wholesale advantage, Kitti produces not only winter gloves, but also men's and women's gloves. This provides a strong positioning especially in children's accessories production.",
+          "Our business partners who want to make winter glove wholesale purchases can access our current collections through Kitti's B2B portal, examine our collections and price lists, place orders, and complete them."
+        ]
       }
     }
   }

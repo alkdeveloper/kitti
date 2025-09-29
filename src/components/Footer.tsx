@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface FooterProps {
     theme?: string; 
@@ -8,21 +9,23 @@ interface FooterProps {
   
 
 const Footer: React.FC<FooterProps> = ({ theme }) => {
+  const { t } = useLanguage();
+  
   return (
     <footer className={`footer ${theme}`}>
       <div className="footer-inner">
         {/* Linkler */}
         <div className="footer-links">
-          <a href="#">Aydınlatma Metni</a>
+          <a href="/aydinlatma-metni">{t.footer.links.privacy}</a>
           <span>·</span>
-          <a href="#">İleti Onay Metni</a>
+          <a href="/ileti-onay-metni">{t.footer.links.consent}</a>
           <span>·</span>
-          <a href="#">Çerez Politikası</a>
+          <a href="/cerez-politikasi">{t.footer.links.cookies}</a>
         </div>
 
         {/* Sosyal medya */}
         <div className="footer-social">
-          <span>Yenilikleri kaçırmayın;</span>
+          <span>{t.footer.social.text}</span>
           <div className="icons">
             <a href="#">
               <svg
