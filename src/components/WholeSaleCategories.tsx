@@ -75,7 +75,6 @@ const WholeSaleCategories: React.FC<WholeSaleCategoriesProps> = ({
               </button>
             );
           })}
-          <span aria-hidden className="corner-fix" />
         </aside>
 
         <main className="wholesale-content">

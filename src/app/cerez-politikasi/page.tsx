@@ -85,7 +85,7 @@ const CerezPolitikasi: React.FC = () => {
           </div>
         </div>
       </main>
-      <Footer theme="bordered border-t-0" />
+      <Footer theme="bordered" />
       <FooterBottom />
       <ScrollToTop />
     </>

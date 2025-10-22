@@ -11,6 +11,7 @@ import CategoriesSecondary from "@/components/CategoriesSecondary";
 import CategoryThird from "@/components/CategoryThird";
 import CategoriesFourth from "@/components/CategoriesFourth";
 import CategoriesFifth from "@/components/CategoriesFifth";
+import ProductCardNew from "@/components/ProductCardNew";
 import p1 from "@/images/slider.png";
 import prodImage1 from "@/images/product-image-1.png";
 import prodImage2 from "@/images/product-image-2.png";
@@ -141,6 +142,30 @@ export default function ProductsPage() {
     },
   ];
 
+  const productCardNewData = [
+    {
+      title: "Tesettür Mayo",
+      description: "Ürün detayları, pamuk, polyester, mekanizmalı, katlamalı ve daha bir çok vs 4-5 satırlık bilgi verilebilecek alan için ayrılmıştır.",
+      mainImage: prodImage1.src,
+      colorImages: [prodImage1.src, prodImage2.src, prodImage3.src, prodImage1.src],
+      backgroundColor: "#FACBA2",
+    },
+    {
+      title: "Tesettür Mayo",
+      description: "Ürün detayları, pamuk, polyester, mekanizmalı, katlamalı ve daha bir çok vs 4-5 satırlık bilgi verilebilecek alan için ayrılmıştır.",
+      mainImage: prodImage2.src,
+      colorImages: [prodImage2.src, prodImage3.src, prodImage1.src, prodImage2.src],
+      backgroundColor: "#FACBA2",
+    },
+    {
+      title: "Tesettür Mayo",
+      description: "Ürün detayları, pamuk, polyester, mekanizmalı, katlamalı ve daha bir çok vs 4-5 satırlık bilgi verilebilecek alan için ayrılmıştır.",
+      mainImage: prodImage3.src,
+      colorImages: [prodImage3.src, prodImage1.src, prodImage2.src, prodImage3.src],
+      backgroundColor: "#FACBA2",
+    },
+  ];
+
   return (
     <>
       <Header theme="white" />
@@ -182,7 +207,40 @@ export default function ProductsPage() {
         categories={categoriesFifth}
       />
 
-      <Footer />
+      {/* Product Card New Section */}
+      <section className="product-card-new-section" style={{ 
+        backgroundColor: "#F5F5F5", 
+        padding: "100px 50px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        gap: "40px"
+      }}>
+        <div className="product-card-new-header">
+          <h2 className="product-card-new-header-title">
+            Yeni Ürün Kartları
+          </h2>
+          <p className="product-card-new-header-description">
+            Tasarımda gösterilen kart yapısı
+          </p>
+        </div>
+        
+        <div className="product-card-new-grid">
+          {productCardNewData.map((product) => (
+            <ProductCardNew
+              key={product.title}
+              title={product.title}
+              description={product.description}
+              mainImage={product.mainImage}
+              colorImages={product.colorImages}
+              backgroundColor={product.backgroundColor}
+            />
+          ))}
+        </div>
+      </section>
+
+      <Footer theme="bordered" />
       <FooterBottom theme="white" />
       <ScrollToTop />
     </>

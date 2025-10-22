@@ -131,10 +131,10 @@ const HomePage: React.FC = () => {
           ]}
           defaultActive="winter-gloves"
         />
+      <ScrollToTop />
       </main>
       <Footer theme="bordered border-t-0" />
       <FooterBottom />
-      <ScrollToTop />
     </>
   );
 };
