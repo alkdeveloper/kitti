@@ -20,6 +20,21 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Recent Updates
+
+### Product Card Component (ProductCardNew)
+- **Thumbnail Functionality**: Added 4 clickable thumbnails that update the main product image
+- **Visual Feedback**: Selected thumbnails show with orange border and shadow effects
+- **Title Styling**: Added decorative line under product titles
+- **Interactive Design**: Smooth hover and selection animations
+
+### Features Implemented
+- ✅ 4 thumbnail images per product card
+- ✅ Click-to-update main image functionality  
+- ✅ Visual selection indicators
+- ✅ Responsive design with smooth transitions
+- ✅ Decorative title underline
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
