@@ -11,7 +11,7 @@ import kartEtiket from "@/images/kart-etiket.png";
 import babyImage from "@/images/baby-contour.png";
 import turkeyMap from "@/images/turkey-map-2.gif";
 import smileGirl from "@/images/smile-girl.png";
-import wholesaleImage from "@/images/whole-sale.png";
+import wholesaleImage from "@/images/cocuk-png.gif";
 import turkeyMapGif from "@/images/turkey-map.gif";
 import whoWeAreBg from "@/images/who-we-are.png";
 import heroBackground from "@/images/hero-first-bg.png";

@@ -231,7 +231,7 @@ main {
 
   .sun-gif {
     width: 100%;
-    height: 45vh;
+    /* height: 45vh; */
     object-fit: cover;
 
     @media(min-width:768px) {
@@ -248,17 +248,18 @@ main {
     width: 100%;
     background-color: #FBCDA3;
     position: relative;
-    height: calc(55vh - 80px);
+    /* height: calc(55vh - 80px);
 
     @media(min-width:768px) {
       min-height: 350px;
-    }
+    } */
 
     .sea-gif {
       width: 100%;
       z-index: 4;
       height: 100%;
       object-fit: cover;
+      object-position: top;
     }
 
     .sea-bottom {
@@ -307,6 +308,8 @@ main {
 
       @media(min-width: 992px) {
         display: block;
+        height: 100vh;
+        min-height: unset;
       }
     }
 
@@ -339,6 +342,7 @@ main {
 
       @media(max-width: 992px) {
         padding: 0 20px;
+        max-width: unset;
         padding-bottom: 400px;
         gap: 30px;
         text-align: center;
@@ -502,6 +506,7 @@ main {
 
       @media(max-width: 992px) {
         padding: 0 20px;
+        max-width: unset;
         padding-bottom: 400px;
         gap: 30px;
         text-align: center;
@@ -884,7 +889,7 @@ main {
   background-position: bottom;
   padding: 100px 50px;
   min-height: 100vh;
-  padding-bottom: 150px;
+  padding-bottom: 170px;
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
@@ -894,7 +899,7 @@ main {
 
   @media(max-width: 992px) {
     padding: 100px 20px;
-    padding-bottom: 150px;
+    padding-bottom: 170px;
   }
 
   .image-w-text-container {
@@ -1027,7 +1032,7 @@ main {
     img {
       width: 100%;
       object-fit: contain;
-      max-width: 600px;
+      max-width: 500px;
       height: 100%;
 
       @media(max-width: 992px) {
@@ -1077,7 +1082,7 @@ main {
   background-position: bottom;
   min-height: 100vh;
   padding: 100px 50px;
-  padding-bottom: 150px;
+  padding-bottom: 170px;
   background-size: cover;
   background-repeat: no-repeat;
   background-color: #c9dbf4;
@@ -1087,7 +1092,7 @@ main {
 
   @media(max-width: 992px) {
     padding: 100px 20px;
-    padding-bottom: 150px;
+    padding-bottom: 170px;
     grid-template-columns: 1fr;
   }
 
@@ -1181,7 +1186,7 @@ main {
     img {
       width: 100%;
       height: 100%;
-      max-width: 600px;
+      max-width: 500px;
       object-fit: contain;
 
       @media(max-width: 992px) {
@@ -3142,7 +3147,7 @@ main {
 .what-we-produce-section {
   width: 100%;
   padding: 100px 50px;
-  padding-bottom: 150px;
+  padding-bottom: 170px;
   display: flex;
   min-height: 100vh;
   justify-content: center;
@@ -3154,7 +3159,7 @@ main {
 
   @media (max-width: 992px) {
     padding: 60px 20px;
-    padding-bottom: 150px;
+    padding-bottom: 170px;
   }
 
   .what-we-produce-container {
@@ -3902,16 +3907,13 @@ main {
 .about-us-title,
 .about-us-text,
 .about-us-map,
-.image-w-text-container,
 .hero-content,
 .image-w-text-content,
 .image-w-text-visual,
-.image-w-text-subtitle,
 .image-w-text-text-mobile,
 .wholesale-card,
 .what-we-produce-container,
 .child-safety-container,
-.image-w-text-button,
 .footer-inner,
 .footer-bottom,
 .register-inner,
@@ -3934,16 +3936,13 @@ main {
   .about-us-title,
   .about-us-text,
   .about-us-map,
-  .image-w-text-container,
   .hero-content,
   .image-w-text-content,
   .image-w-text-visual,
   .wholesale-card,
   .what-we-produce-container,
   .child-safety-container,
-  .image-w-text-subtitle,
   .image-w-text-text-mobile,
-  .image-w-text-button,
   .footer-inner,
   .footer-bottom,
   .register-inner,
@@ -3967,16 +3966,13 @@ main {
   .about-us-title,
   .about-us-text,
   .about-us-map,
-  .image-w-text-container,
   .hero-content,
   .image-w-text-content,
   .image-w-text-visual,
   .wholesale-card,
   .what-we-produce-container,
   .child-safety-container,
-  .image-w-text-subtitle,
   .image-w-text-text-mobile,
-  .image-w-text-button,
   .footer-inner,
   .footer-bottom,
   .register-inner,
@@ -4000,16 +3996,13 @@ main {
   .about-us-title,
   .about-us-text,
   .about-us-map,
-  .image-w-text-container,
   .hero-content,
   .image-w-text-content,
   .image-w-text-visual,
   .wholesale-card,
   .what-we-produce-container,
   .child-safety-container,
-  .image-w-text-subtitle,
   .image-w-text-text-mobile,
-  .image-w-text-button,
   .footer-inner,
   .footer-bottom,
   .register-inner,
@@ -4022,7 +4015,7 @@ main {
   .turkey-map-container,
   .story-hero-container,
   .wholesale-invite-container {
-    zoom: 1.2;
+    zoom: 1;
   }
 }
 
