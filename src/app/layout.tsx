@@ -1,10 +1,11 @@
 "use client";
 
 import { Inter, Caveat, Poppins } from "next/font/google";
+import { useEffect, useState } from "react";
 import "./globals.scss";
-import { LanguageProvider, useLanguage } from "@/contexts/LanguageContext";
-import LoadingSpinner from "@/components/LoadingSpinner";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import CookieConsent from "@/components/CookieConsent";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -23,12 +24,32 @@ const poppins = Poppins({
 });
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
-  const { isLoading } = useLanguage();
-  
+  const [showLoading, setShowLoading] = useState(true);
+  const [startReveal, setStartReveal] = useState(false);
+  const [animationComplete, setAnimationComplete] = useState(false);
+
+  useEffect(() => {
+    // 2 saniye loading spinner göster
+    const loadingTimer = setTimeout(() => {
+      setShowLoading(false);
+      setStartReveal(true); // Loading bittikten sonra reveal başlat
+    }, 2000);
+
+    // Reveal animasyonu bittikten sonra (2s loading + 2s reveal = 4s)
+    const revealTimer = setTimeout(() => {
+      setAnimationComplete(true);
+    }, 4000);
+
+    return () => {
+      clearTimeout(loadingTimer);
+      clearTimeout(revealTimer);
+    };
+  }, []);
+
   return (
     <>
-      <LoadingSpinner isLoading={isLoading} />
-      <div className={isLoading ? 'page-fade-enter' : 'page-fade-enter-active'}>
+      {showLoading && <LoadingSpinner />}
+      <div className={`reveal ${startReveal ? 'reveal-start' : ''} ${animationComplete ? 'reveal-complete' : ''}`}>
         {children}
       </div>
       <CookieConsent />

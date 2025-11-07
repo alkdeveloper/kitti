@@ -28,7 +28,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     // Simulate loading time and then hide spinner
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500); // 1.5 saniye loading
+    }, 2500); // 2.5 saniye loading (reveal animasyonu 2s + fade out için ekstra süre)
 
     return () => clearTimeout(timer);
   }, []);

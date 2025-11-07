@@ -429,9 +429,9 @@ main {
         transition: all 0.3s ease;
 
         &:hover {
-          background-color: #2E6193;
+          background-color: #bd631f;
           color: white;
-          border-color: #2E6193;
+          border-color: #bd631f;
           transform: translateY(-2px);
         }
 
@@ -786,9 +786,9 @@ main {
     transition: all 0.3s ease;
 
     &:hover {
-      background-color: #2E6193;
+      background-color: #bd631f;
       color: white;
-      border-color: #2E6193;
+      border-color: #bd631f;
       transform: translateY(-2px);
     }
 
@@ -1062,9 +1062,9 @@ main {
     transition: all 0.3s ease;
 
     &:hover {
-      background-color: #2E6193;
-      color: white;
-      border-color: #2E6193;
+      background-color: #bd631f;
+      color: white !important; 
+      border-color: #bd631f;
       transform: translateY(-2px);
     }
 
@@ -1225,9 +1225,9 @@ main {
     transition: all 0.3s ease;
 
     &:hover {
-      background-color: #2E6193;
-      color: white;
-      border-color: #2E6193;
+      background-color: #bd631f;
+      color: white !important;
+      border-color: #bd631f;
       transform: translateY(-2px);
     }
 
@@ -2194,9 +2194,9 @@ main {
         transition: all 0.3s ease;
 
         &:hover {
-          background-color: #2E6193;
-          color: white;
-          border-color: #2E6193;
+          background-color: #BD631F;
+          color: white !important;
+          border-color: #BD631F;
           transform: translateY(-2px);
         }
 
@@ -2909,9 +2909,9 @@ main {
         transition: all 0.3s ease;
 
         &:hover {
-          background-color: #2E6193;
-          color: white;
-          border-color: #2E6193;
+            background-color: #BD631F;
+          color: white !important;
+          border-color: #BD631F;
           transform: translateY(-2px);
         }
 
@@ -3362,9 +3362,9 @@ main {
     transition: all 0.3s ease;
 
     &:hover {
-      background: #2E6193;
-      color: white;
-      border-color: #2E6193;
+      background: #BD631F;
+      color: white !important;
+      border-color: #BD631F;
       transform: translateY(-2px);
     }
 
@@ -3390,12 +3390,49 @@ main {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #D4A574;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
-  backdrop-filter: blur(5px);
+  z-index: 9999999;
+  transition: opacity 1.5s ease-out;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+
+@keyframes revealEffect {
+  0% {
+    clip-path: circle(0% at 50% 50%);
+  }
+  100% {
+    clip-path: circle(150% at 50% 50%);
+  }
+}
+
+body{
+  background-color: #1e3a8a;
+}
+
+.reveal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #1e3a8a;
+  clip-path: circle(0% at 50% 50%);
+}
+
+.reveal.reveal-start {
+  animation: revealEffect 2s ease forwards;
+}
+
+.reveal.reveal-complete {
+  position: relative;
+  top: auto;
+  left: auto;
+  height: auto;
+  min-height: 100vh;
 }
 
 .loading-logo {
