@@ -81,9 +81,10 @@ const WholeSaleCategories: React.FC<WholeSaleCategoriesProps> = ({
           {activeTab && (
             <>
               <h3 className="content-title">{activeTab.title}</h3>
-              <div className="content-body">
-                <p>{activeTab.paragraphs}</p>
-              </div>
+              <div 
+                className="content-body"
+                dangerouslySetInnerHTML={{ __html: activeTab.paragraphs }}
+              />
             </>
           )}
         </main>

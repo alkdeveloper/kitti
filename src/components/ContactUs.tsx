@@ -1,19 +1,36 @@
 "use client";
 
 import React, { useState } from "react";
-    import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useSiteSettings } from '@/contexts/SiteSettingsContext';
 import { IMAGE_PATHS } from "@/data/images";
+import apiService from '@/services/api';
 
 const ContactForm: React.FC = () => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const { settings } = useSiteSettings();
+  
+  const contactSection = settings?.sections_contact?.[0];
+
+  const title = contactSection
+    ? language === "en"
+      ? contactSection.title_en
+      : contactSection.title_tr
+    : "";
+
+  const description = contactSection
+    ? language === "en"
+      ? contactSection.description_en
+      : contactSection.description_tr
+    : "";
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "",
+    phone: "",
     message: "",
   });
-  const [checkbox1, setCheckbox1] = useState(false);
-  const [checkbox2, setCheckbox2] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [subscribeNewsletter, setSubscribeNewsletter] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("")
@@ -27,38 +44,54 @@ const ContactForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(""); 
+    setError("");
+    setSuccess(false);
 
-    if (!checkbox1) {
-      setError("Lütfen bilgilendirme metnini kabul edin.");
+    // Validasyon
+    if (!formData.name.trim()) {
+      setError(language === "en" ? "Please enter your name." : "Lütfen adınızı girin.");
+      return;
+    }
+
+    if (!formData.email.trim()) {
+      setError(language === "en" ? "Please enter your email." : "Lütfen e-posta adresinizi girin.");
+      return;
+    }
+
+    if (!formData.message.trim()) {
+      setError(language === "en" ? "Please enter your message." : "Lütfen mesajınızı girin.");
+      return;
+    }
+
+    if (!acceptTerms) {
+      setError(language === "en" ? "Please accept the terms and conditions." : "Lütfen bilgilendirme metnini kabul edin.");
       return;
     }
 
     setLoading(true);
 
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          izin: checkbox2,
-        }),
+      await apiService.submitContactForm({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim() || undefined,
+        message: formData.message.trim(),
+        accept_terms: true,
+        subscribe_newsletter: subscribeNewsletter,
       });
 
-      if (res.ok) {
-        setSuccess(true);
-        setFormData({ name: "", email: "", subject: "", message: "" });
-        setCheckbox1(false);
-        setCheckbox2(false);
-      } else {
-        setError("Mesaj gönderilirken hata oluştu!");
-      }
+      setSuccess(true);
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      setAcceptTerms(false);
+      setSubscribeNewsletter(false);
+      setError("");
     } catch (error) {
-      console.error(error);
-      setError("Bağlantı hatası! Lütfen tekrar deneyin.");
+      console.error("Contact form error:", error);
+      setError(
+        language === "en"
+          ? "An error occurred while sending your message. Please try again."
+          : "Mesaj gönderilirken hata oluştu! Lütfen tekrar deneyin."
+      );
     } finally {
       setLoading(false);
     }
@@ -72,12 +105,15 @@ const ContactForm: React.FC = () => {
       }}
     >
       <div className="contact-container">
-        <h2 className="contact-title">{t.contactUs.title}</h2>
-        <div className="contact-description">
-          {t.contactUs.description.map((text, index) => (
-            <p key={index}>{text}</p>
-          ))}
-        </div>
+        {title && (
+          <h2 className="contact-title">{title}</h2>
+        )}
+        {description && (
+          <div 
+            className="contact-description"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
+        )}
 
         <form className="contact-form" onSubmit={handleSubmit}>
           <input
@@ -97,9 +133,9 @@ const ContactForm: React.FC = () => {
             className="contact-input"
           />
           <input
-            type="text"
-            name="subject"
-            value={formData.subject}
+            type="tel"
+            name="phone"
+            value={formData.phone}
             onChange={handleChange}
             placeholder={t.contactUs.form.phone}
             className="contact-input"
@@ -115,11 +151,12 @@ const ContactForm: React.FC = () => {
           <label className="contact-checkbox">
             <input
               type="checkbox"
-              checked={checkbox1}
-              onChange={(e) => setCheckbox1(e.target.checked)}
+              checked={acceptTerms}
+              onChange={(e) => setAcceptTerms(e.target.checked)}
+              required
             />
             <div className="custom-checkbox">
-              {checkbox1 && <div className="checkmark">
+              {acceptTerms && <div className="checkmark">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z"/></svg>
                 </div>}
             </div>
@@ -133,11 +170,11 @@ const ContactForm: React.FC = () => {
           <label className="contact-checkbox">
             <input
               type="checkbox"
-              checked={checkbox2}
-              onChange={(e) => setCheckbox2(e.target.checked)}
+              checked={subscribeNewsletter}
+              onChange={(e) => setSubscribeNewsletter(e.target.checked)}
             />
             <div className="custom-checkbox">
-              {checkbox2 && <div className="checkmark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z"/></svg></div>}
+              {subscribeNewsletter && <div className="checkmark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z"/></svg></div>}
             </div>
             <span
               dangerouslySetInnerHTML={{
@@ -147,12 +184,20 @@ const ContactForm: React.FC = () => {
           </label>
 
           <button type="submit" className="contact-button" disabled={loading}>
-            {loading ? "Gönderiliyor..." : t.contactUs.form.button}
+            {loading 
+              ? (language === "en" ? "Sending..." : "Gönderiliyor...") 
+              : t.contactUs.form.button}
           </button>
 
           {error && <p className="error-message" style={{ color: "red", marginTop: "8px" }}>{error}</p>}
 
-          {success && <p className="success-message" style={{ color: "green", marginTop: "8px" }}>Mesajınız başarıyla gönderildi!</p>}
+          {success && (
+            <p className="success-message" style={{ color: "green", marginTop: "8px" }}>
+              {language === "en" 
+                ? "Your message has been sent successfully!" 
+                : "Mesajınız başarıyla gönderildi!"}
+            </p>
+          )}
         </form>
       </div>
     </section>

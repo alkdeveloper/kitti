@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { useLanguage } from '@/contexts/LanguageContext';
+import apiService from '@/services/api';
+import { Slider as SliderType } from '@/services/api';
 
 export interface SliderItem {
   id?: string | number;
@@ -9,20 +12,53 @@ export interface SliderItem {
 }
 
 interface SliderProps {
-  slides: SliderItem[];
+  slides?: SliderItem[];
   autoPlay?: boolean;
   intervalMs?: number;
   className?: string;
 }
 
 const Slider: React.FC<SliderProps> = ({
-  slides,
+  slides: propSlides,
   autoPlay = true,
   intervalMs = 5000,
   className,
 }) => {
+  const { language } = useLanguage();
+  const [slides, setSlides] = useState<SliderItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [index, setIndex] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const fetchSliders = async () => {
+      if (propSlides) {
+        setSlides(propSlides);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const response = await apiService.getSliders(language === 'en' ? 'en' : 'tr');
+        if (response && response.results) {
+          const formattedSlides: SliderItem[] = response.results.map((slider: SliderType) => ({
+            id: slider.id,
+            image: slider.image_url,
+            alt: language === 'en' ? slider.title_en : slider.title_tr,
+          }));
+          setSlides(formattedSlides);
+        }
+      } catch (error) {
+        console.error('Error fetching sliders:', error);
+        setSlides([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSliders();
+  }, [language, propSlides]);
 
   useEffect(() => {
     if (!autoPlay || slides.length <= 1) return;
@@ -45,6 +81,18 @@ const Slider: React.FC<SliderProps> = ({
       setIndex((prev) => (prev + 1) % slides.length);
     }
   };
+
+  if (loading) {
+    return (
+      <div className={`slider ${className ?? ""} slider-loading`}>
+        <div className="slider-loading-spinner">Loading...</div>
+      </div>
+    );
+  }
+
+  if (slides.length === 0) {
+    return null;
+  }
 
   return (
     <div className={`slider ${className ?? ""}`} tabIndex={0} onKeyDown={onKeyDown}>

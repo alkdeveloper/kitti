@@ -2,23 +2,52 @@
 
 import React from "react";
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useSiteSettings } from '@/contexts/SiteSettingsContext';
 import { imageAssets } from "@/data/images";
 
 const ChildSafety: React.FC = () => {
-  const { t } = useLanguage();
+  const { language } = useLanguage();
+  const { settings } = useSiteSettings();
+  
+  // type: "growing_safely" ve name: "child_safety" olan section'ı bul
+  const childSafetySection = settings?.sections_our_story?.find(
+    (section) => section.type === "growing_safely" && section.name === "child_safety"
+  );
+
+  const title = childSafetySection
+    ? language === "en"
+      ? childSafetySection.title_en
+      : childSafetySection.title_tr
+    : "";
+
+  const description = childSafetySection
+    ? language === "en"
+      ? childSafetySection.description_en
+      : childSafetySection.description_tr
+    : "";
+
+  const imageUrl = childSafetySection?.image_url;
+  const fallbackImage = imageAssets.content.smileGirl;
   
   return (
     <section 
       className="child-safety-section"
-      style={{ backgroundImage: `url(${imageAssets.content.smileGirl})` }}
+      style={{ 
+        backgroundImage: imageUrl 
+          ? `url(${imageUrl})` 
+          : `url(${fallbackImage})` 
+      }}
     >
       <div className="child-safety-container">
-        <h2 className="child-safety-title">{t.childSafety.title}</h2>
-        <div className="child-safety-description">
-          {t.childSafety.description.map((text, index) => (
-            <p key={index}>{text}</p>
-          ))}
-        </div>
+        {title && (
+          <h2 className="child-safety-title">{title}</h2>
+        )}
+        {description && (
+          <div 
+            className="child-safety-description"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
+        )}
       </div>
     </section>
   );

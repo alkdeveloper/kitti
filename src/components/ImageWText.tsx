@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
 interface ImageWTextProps {
   subtitle: string;
@@ -12,6 +13,7 @@ interface ImageWTextProps {
   imageAlt?: string;
   showButton?: boolean;
   onButtonClick?: () => void;
+  buttonUrl?: string;
   backgroundColor?: string;
   reverse?: boolean;
   subImage?: string;
@@ -29,6 +31,7 @@ const ImageWText: React.FC<ImageWTextProps> = ({
   imageAlt = "Content Image",
   showButton = true,
   onButtonClick,
+  buttonUrl,
   reverse = false,
   subImage,
   backgroundColor = "#F5F5F5",
@@ -56,14 +59,24 @@ const ImageWText: React.FC<ImageWTextProps> = ({
         dangerouslySetInnerHTML={{ __html: text }}
       />
 
-      {showButton && (
-        <button
-          className="image-w-text-button"
-          style={{ color: textColor, borderColor: textColor }}
-          onClick={onButtonClick || (() => {})}
-        >
-          {buttonText}
-        </button>
+      {showButton && buttonText && (
+        buttonUrl ? (
+          <Link
+            href={buttonUrl}
+            className="image-w-text-button"
+            style={{ color: textColor, borderColor: textColor, textDecoration: 'none' }}
+          >
+            {buttonText}
+          </Link>
+        ) : (
+          <button
+            className="image-w-text-button"
+            style={{ color: textColor, borderColor: textColor }}
+            onClick={onButtonClick || (() => {})}
+          >
+            {buttonText}
+          </button>
+        )
       )}
     </div>
   );
@@ -84,7 +97,7 @@ const ImageWText: React.FC<ImageWTextProps> = ({
         backgroundColor: backgroundColor ? backgroundColor : undefined,
       }}
     >
-      <div className="image-w-text-container">
+      <div className="image-w-text-container" >
         {reverse ? (
           <>
             {imageDiv}

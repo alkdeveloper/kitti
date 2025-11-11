@@ -1,74 +1,92 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo } from "react";
+import Link from "next/link";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useSiteSettings } from "@/contexts/SiteSettingsContext";
 import productCardsBg from "@/images/products-section-bg.png";
-import prodImage1 from "@/images/product-image-1.png";
-import prodImage2 from "@/images/product-image-2.png";
-import prodImage3 from "@/images/product-image-3.png";
-import catIcon from "@/images/cat-icon.png";
-
-const products = [
-  {
-    id: 1,
-    category: "Kışlık Bereler",
-    images: [prodImage1.src, prodImage2.src, prodImage3.src],
-  },
-  {
-    id: 2,
-    category: "Renkli Eldivenler",
-    images: [prodImage2.src, prodImage3.src, prodImage1.src],
-  },
-  {
-    id: 3,
-    category: "Sevimli Atkılar",
-    images: [prodImage3.src, prodImage1.src, prodImage2.src],
-  },
-];
-
-const ProductCard: React.FC<{ category: string; images: string[] }> = ({
-  category,
-  images,
-}) => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-
-  return (
-    <div className="product-card">
-      <div className="product-image">
-        <div className="product-placeholder">
-          {images.map((img, index) => (
-            <img
-              key={index}
-              src={img}
-              alt=""
-              data-index={index}
-              className={activeIndex === index ? "active" : ""}
-            />
-          ))}
-        </div>
-
-        <div className="color-options">
-          {images.map((_, index) => (
-            <div
-              key={index}
-              className={`color-swatch ${
-                activeIndex === index ? "active" : ""
-              }`}
-              onClick={() => setActiveIndex(index)}
-            ></div>
-          ))}
-        </div>
-      </div>
-      <div className="product-info">
-        <div className="category-icon">
-          <img src={catIcon.src} alt="" />
-        </div>
-        <span className="category-name">{category}</span>
-      </div>
-    </div>
-  );
-};
+import ProductCard from "./ProductCard";
 
 const ProductCards: React.FC = () => {
+  const { language } = useLanguage();
+  const { settings } = useSiteSettings();
+
+  // type: "favorites_of_season" olan section'ı bul
+  const favoritesSection = useMemo(() => {
+    return settings?.sections?.find(
+      (section) => section.type === "favorites_of_season"
+    );
+  }, [settings?.sections]);
+
+  // Product'ları oluştur
+  const products = useMemo(() => {
+    if (!favoritesSection) {
+      return [];
+    }
+
+    const productList = [];
+    
+    if (favoritesSection.product_1) {
+      const product1 = favoritesSection.product_1;
+      const images1: string[] = Array.isArray(product1.images) 
+        ? product1.images.map((img: string | { id: number; image: string }) => 
+            typeof img === 'string' ? img : img?.image || ''
+          ).filter(Boolean) as string[]
+        : [];
+      productList.push({
+        id: product1.id,
+        category: language === "en" ? (product1.title_en || product1.title_tr) : product1.title_tr,
+        images: images1,
+      });
+    }
+
+    if (favoritesSection.product_2) {
+      const product2 = favoritesSection.product_2;
+      const images2: string[] = Array.isArray(product2.images) 
+        ? product2.images.map((img: string | { id: number; image: string }) => 
+            typeof img === 'string' ? img : img?.image || ''
+          ).filter(Boolean) as string[]
+        : [];
+      productList.push({
+        id: product2.id,
+        category: language === "en" ? (product2.title_en || product2.title_tr) : product2.title_tr,
+        images: images2,
+      });
+    }
+
+    if (favoritesSection.product_3) {
+      const product3 = favoritesSection.product_3;
+      const images3: string[] = Array.isArray(product3.images) 
+        ? product3.images.map((img: string | { id: number; image: string }) => 
+            typeof img === 'string' ? img : img?.image || ''
+          ).filter(Boolean) as string[]
+        : [];
+      productList.push({
+        id: product3.id,
+        category: language === "en" ? (product3.title_en || product3.title_tr) : product3.title_tr,
+        images: images3,
+      });
+    }
+
+    return productList;
+  }, [favoritesSection, language]);
+
+  // Eğer section bulunamazsa, fallback olarak boş render et
+  if (!favoritesSection) {
+    return null;
+  }
+
+  const subtitle = language === "en"
+    ? favoritesSection.subtitle_en
+    : favoritesSection.subtitle_tr;
+  const title = language === "en"
+    ? favoritesSection.title_en
+    : favoritesSection.title_tr;
+  const buttonText = language === "en"
+    ? favoritesSection.button_text_left_en || favoritesSection.button_text_left_tr
+    : favoritesSection.button_text_left_tr;
+  const buttonUrl = favoritesSection.button_url_left;
+
   return (
     <section
       className="product-cards-section"
@@ -106,25 +124,39 @@ const ProductCards: React.FC = () => {
               />
             </svg>
           </div>
-          <p className="product-cards-description">
-            Sezonun en sevilen çocuk aksesuarlarını tasarlar, üretir ve
-            Türkiye'nin dört bir yanına ulaştırırız.
-          </p>
+          {/* {title && (
+            <h2 className="product-cards-title">{title}</h2>
+          )} */}
+          {subtitle && (
+            <p className="product-cards-description">
+              {subtitle}
+            </p>
+          )}
         </div>
 
-        <div className="product-cards-grid">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              category={product.category}
-              images={product.images}
-            />
-          ))}
-        </div>
+        {products.length > 0 && (
+          <div className="product-cards-grid">
+            {products.map((product) => (
+              <ProductCard
+                key={product.id}
+                category={product.category}
+                images={product.images}
+              />
+            ))}
+          </div>
+        )}
 
-        <button className="explore-button">
-          ve daha onlarca kategoriyi inceleyin
-        </button>
+        {buttonText && (
+          buttonUrl ? (
+            <Link href={buttonUrl} className="explore-button" style={{ textDecoration: 'none' }}>
+              {buttonText}
+            </Link>
+          ) : (
+            <button className="explore-button">
+              {buttonText}
+            </button>
+          )
+        )}
       </div>
     </section>
   );

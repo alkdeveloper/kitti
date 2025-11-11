@@ -19,7 +19,7 @@ interface CategoriesProps {
 const Categories: React.FC<CategoriesProps> = ({
   title = "KATEGORİLER",
   description = "Sezonun en sevilen çocuk aksesuarlarını tasarlar, üretir ve Türkiye'nin dört bir yanına ulaştırırız.",
-  categories,
+  categories = [],
   className,
 }) => {
   return (
@@ -31,13 +31,15 @@ const Categories: React.FC<CategoriesProps> = ({
         </div>
 
         <div className="categories-grid">
-          {categories.map((category) => (
-            <ProductCard
-              key={category.id}
-              category={category.category}
-              images={category.images}
-            />
-          ))}
+          {categories && categories.length > 0 ? (
+            categories.map((category) => (
+              <ProductCard
+                key={category.id}
+                category={category.category}
+                images={category.images}
+              />
+            ))
+          ) : null}
         </div>
       </div>
     </section>

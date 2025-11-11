@@ -4,8 +4,10 @@ import { Inter, Caveat, Poppins } from "next/font/google";
 import { useEffect, useState } from "react";
 import "./globals.scss";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { SiteSettingsProvider } from "@/contexts/SiteSettingsContext";
 import CookieConsent from "@/components/CookieConsent";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import Favicon from "@/components/Favicon";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -67,11 +69,14 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${caveat.variable} ${poppins.variable} antialiased`}
       >
-        <LanguageProvider>
-          <LayoutContent>
-            {children}
-          </LayoutContent>
-        </LanguageProvider>
+        <SiteSettingsProvider>
+          <Favicon />
+          <LanguageProvider>
+            <LayoutContent>
+              {children}
+            </LayoutContent>
+          </LanguageProvider>
+        </SiteSettingsProvider>
       </body>
     </html>
   );

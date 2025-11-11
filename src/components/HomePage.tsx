@@ -1,6 +1,7 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useSiteSettings } from "@/contexts/SiteSettingsContext";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSectionFirst";
 import ProductCards from "@/components/ProductCards";
@@ -19,7 +20,32 @@ import bgImage from "@/images/atolyeden-dunyaya-bg.png";
 import pageImage from "@/images/atolyeden-dunyaya.gif";
 
 const HomePage: React.FC = () => {
-  const { t } = useLanguage();
+  const { language } = useLanguage();
+  const { settings } = useSiteSettings();
+
+  // FAQ items'ı WholeSaleCategories formatına dönüştür
+  const faqTabs = useMemo(() => {
+    if (!settings?.faq_items || settings.faq_items.length === 0) {
+      return [];
+    }
+
+    // order'a göre sırala
+    const sortedFaqs = [...settings.faq_items].sort((a, b) => a.order - b.order);
+
+    return sortedFaqs.map((faq) => ({
+      key: `faq-${faq.id}`,
+      label: language === "en" ? faq.question_en : faq.question_tr,
+      title: language === "en" ? faq.question_en : faq.question_tr,
+      paragraphs: language === "en" ? faq.answer_en : faq.answer_tr,
+    }));
+  }, [settings?.faq_items, language]);
+
+  // production_capacity section'ını bul
+  const productionCapacitySection = useMemo(() => {
+    return settings?.sections?.find(
+      (section) => section.type === "production_capacity"
+    );
+  }, [settings?.sections]);
 
   return (
     <>
@@ -34,103 +60,29 @@ const HomePage: React.FC = () => {
         <HeroSection />
         <ProductCards />
         <AboutUs />
-        <ImageWText
-          subtitle={t.homePage.imageWText.subtitle}
-          title={t.homePage.imageWText.title}
-          text={t.homePage.imageWText.text}
-          buttonText={t.homePage.imageWText.buttonText}
-          backgroundImage={bgImage.src}
-          contentImage={pageImage.src}
-          imageAlt="Production Capacity"
-          showButton={true}
-          reverse={false}
-          backgroundColor="#F5F5F5"
-          onButtonClick={() => console.log("Buton tıklandı!")}
-        />
+        {productionCapacitySection && (
+          <ImageWText
+            subtitle={language === "en" ? (productionCapacitySection.subtitle_en || productionCapacitySection.subtitle_tr || "") : (productionCapacitySection.subtitle_tr || "")}
+            title={language === "en" ? productionCapacitySection.title_en : productionCapacitySection.title_tr}
+            text={language === "en" ? productionCapacitySection.description_en : productionCapacitySection.description_tr}
+            buttonText={language === "en" ? (productionCapacitySection.button_text_left_en || productionCapacitySection.button_text_left_tr || undefined) : (productionCapacitySection.button_text_left_tr || undefined)}
+            buttonUrl={productionCapacitySection.button_url_left || undefined}
+            backgroundImage={bgImage.src}
+            contentImage={productionCapacitySection.image_url || ""}
+            imageAlt="Production Capacity"
+            showButton={!!productionCapacitySection.button_text_left_tr}
+            reverse={false}
+            backgroundColor="#F5F5F5"
+          />
+        )}
         <HeroSectionSecondary />
         <ImageWTextSecondary />
-        <WholeSaleCategories
-          tabs={[
-            {
-              key: "winter-beanies",
-              label: "Kışlık Bere",
-              title: "Kışlık Bere Koleksiyonu",
-              paragraphs:
-                "Soğuk kış günlerinde sizi sıcacık tutacak, pamuk ve yün karışımlı modern tasarımlar. Hem şıklığı hem de rahatlığı bir arada sunuyoruz.",
-            },
-            {
-              key: "winter-gloves",
-              label: "Kışlık Eldiven",
-              title: "Kışlık Eldiven Koleksiyonu",
-              paragraphs:
-                "Polar, deri ve örgü seçenekleriyle eldiven çeşitlerimiz hem günlük kullanım hem de outdoor aktiviteler için uygundur.",
-            },
-            {
-              key: "winter-hats",
-              label: "Kışlık Şapka",
-              title: "Kışlık Şapka Koleksiyonu",
-              paragraphs:
-                "Rüzgarı kesen, su geçirmez ve modaya uygun kışlık şapkalarla soğuktan korunurken tarzınızı da koruyun.",
-            },
-            {
-              key: "wholesale-beanies",
-              label: "Toptan Bere",
-              title: "Toptan Bere Çözümleri",
-              paragraphs:
-                "Perakende satışlarınız için uygun fiyatlı, çok çeşitli renk ve model seçenekleriyle toptan bere siparişleri.",
-            },
-            {
-              key: "wholesale-gloves",
-              label: "Toptan Eldiven",
-              title: "Toptan Eldiven Çözümleri",
-              paragraphs:
-                "Farklı malzeme ve kalınlıklarda üretilmiş eldiven modellerimizi işletmenize özel toptan sipariş verebilirsiniz.",
-            },
-            {
-              key: "winter-earmuffs",
-              label: "Kışlık Kulaklık",
-              title: "Kışlık Kulaklık Koleksiyonu",
-              paragraphs:
-                "Yumuşak kürklü ve ayarlanabilir kulaklıklarla kulaklarınızı koruyun. Spor yaparken ya da günlük kullanımda idealdir.",
-            },
-            {
-              key: "wholesale-earmuffs",
-              label: "Toptan Kulaklık",
-              title: "Toptan Kışlık Kulaklık",
-              paragraphs:
-                "Mağazalar ve işletmeler için çeşitli renklerde kulaklıkları avantajlı fiyatlarla toptan sunuyoruz.",
-            },
-            {
-              key: "winter-scarves",
-              label: "Kışlık Atkı",
-              title: "Kışlık Atkı Koleksiyonu",
-              paragraphs:
-                "Örgü, kaşmir ve pamuklu atkılarla hem sıcak kalın hem de tarzınızı tamamlayın. Farklı desen ve renk seçenekleri mevcut.",
-            },
-            {
-              key: "wholesale-scarves",
-              label: "Toptan Atkı",
-              title: "Toptan Atkı Çözümleri",
-              paragraphs:
-                "İşletmeler için toplu alımlarda cazip fiyatlarla kaliteli atkı seçenekleri sunuyoruz.",
-            },
-            {
-              key: "winter-socks",
-              label: "Kışlık Çorap",
-              title: "Kışlık Çorap Koleksiyonu",
-              paragraphs:
-                "Yünlü, pamuklu ve termal çoraplarla ayaklarınızı sıcacık tutun. Günlük kullanımdan outdoor aktivitelerine kadar her ihtiyaca uygun.",
-            },
-            {
-              key: "wholesale-socks",
-              label: "Toptan Çorap",
-              title: "Toptan Çorap Çözümleri",
-              paragraphs:
-                "Her yaş grubuna hitap eden çorap modellerini perakende satışlarınıza özel toptan avantajlarla sunuyoruz.",
-            },
-          ]}
-          defaultActive="winter-gloves"
-        />
+        {faqTabs.length > 0 && (
+          <WholeSaleCategories
+            tabs={faqTabs}
+            defaultActive={faqTabs[0]?.key}
+          />
+        )}
       <ScrollToTop />
       </main>
       <Footer theme="bordered border-t-0" />

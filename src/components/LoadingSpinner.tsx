@@ -3,7 +3,7 @@
 import React from "react";
 
 interface LoadingSpinnerProps {
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = () => {

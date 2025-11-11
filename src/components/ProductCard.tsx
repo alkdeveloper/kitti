@@ -19,31 +19,33 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <div className={`product-card ${className ?? ""}`}>
-      <div className="product-image">
-        <div className="product-placeholder">
-          {images.map((img, index) => (
-            <img
-              key={index}
-              src={img}
-              alt=""
-              data-index={index}
-              className={activeIndex === index ? "active" : ""}
-            />
-          ))}
-        </div>
+      {images && images.length > 0 && (
+        <div className="product-image">
+          <div className="product-placeholder">
+            {images.map((img, index) => (
+              <img
+                key={index}
+                src={img}
+                alt=""
+                data-index={index}
+                className={activeIndex === index ? "active" : ""}
+              />
+            ))}
+          </div>
 
-        <div className="color-options">
-          {images.map((_, index) => (
-            <div
-              key={index}
-              className={`color-swatch ${
-                activeIndex === index ? "active" : ""
-              }`}
-              onClick={() => setActiveIndex(index)}
-            ></div>
-          ))}
+          <div className="color-options">
+            {images.map((_, index) => (
+              <div
+                key={index}
+                className={`color-swatch ${
+                  activeIndex === index ? "active" : ""
+                }`}
+                onClick={() => setActiveIndex(index)}
+              ></div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
       <div className="product-info">
         <div className="category-icon">
           <img src={catIcon.src} alt="" />

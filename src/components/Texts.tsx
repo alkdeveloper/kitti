@@ -2,23 +2,53 @@
 
 import React from "react";
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useSiteSettings } from '@/contexts/SiteSettingsContext';
 import bgImage from "@/images/toptan-portal.png";
 
 const Texts: React.FC = () => {
-  const { t } = useLanguage();
+  const { language } = useLanguage();
+  const { settings } = useSiteSettings();
+  
+  const wholesaleSection = settings?.sections_wholasale?.[0];
+
+  const title = wholesaleSection
+    ? language === "en"
+      ? wholesaleSection.title_en
+      : wholesaleSection.title_tr
+    : "";
+
+  const description = wholesaleSection
+    ? language === "en"
+      ? wholesaleSection.description_en
+      : wholesaleSection.description_tr
+    : "";
+
+  const infoText = wholesaleSection
+    ? language === "en"
+      ? wholesaleSection.info_text_en
+      : wholesaleSection.info_text_tr
+    : "";
   
   return (
     <section className="texts-section" style={{
       backgroundImage: `url(${bgImage.src})`,
     }}>
       <div className="texts-container">
-        <h2 className="texts-title">{t.texts.title}</h2>
-        <p className="texts-description">
-          {t.texts.description}
-        </p>
-        <p className="texts-note">
-          {t.texts.note}
-        </p>
+        {title && (
+          <h2 className="texts-title">{title}</h2>
+        )}
+        {description && (
+          <p 
+            className="texts-description"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
+        )}
+        {infoText && (
+          <p 
+            className="texts-note"
+            dangerouslySetInnerHTML={{ __html: infoText }}
+          />
+        )}
       </div>
     </section>
   );

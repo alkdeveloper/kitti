@@ -2,36 +2,71 @@
 
 import React from "react";
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useSiteSettings } from "@/contexts/SiteSettingsContext";
 import { imageAssets, IMAGE_PATHS } from "@/data/images";
 
 const HeroSectionSecondary: React.FC = () => {
-  const { t } = useLanguage();
+  const { language } = useLanguage();
+  const { settings } = useSiteSettings();
+
+  // type: "its_story" ve name: "Hikayemiz" olan section'ı bul
+  const itsStorySection = settings?.sections?.find(
+    (section) => section.type === "its_story" && section.name_tr === "Hikayemiz"
+  );
+
+  // Eğer section bulunamazsa, fallback olarak boş render et
+  if (!itsStorySection) {
+    return null;
+  }
+
+  const subtitle = language === "en"
+    ? itsStorySection.subtitle_en
+    : itsStorySection.subtitle_tr;
+  const title = language === "en"
+    ? itsStorySection.title_en
+    : itsStorySection.title_tr;
+  const description = language === "en"
+    ? itsStorySection.description_en
+    : itsStorySection.description_tr;
+
+  // Arkaplan resimleri - API'den geliyorsa onları kullan, yoksa fallback
+  const backgroundImage = itsStorySection.image_url ;
+  const mobileImage = itsStorySection.mobile_image_url ;
   
   return (
     <section className="hero-section-secondary">  
       <div className="hero-container">
-        <img
-          src={IMAGE_PATHS.CONTENT_HERO_SECONDARY_BACKGROUND}
-          alt={imageAssets.altTexts.heroSecondaryBackground}
-          className="hero-bg-normal"
-        />
+        {backgroundImage && (
+          <img
+            src={backgroundImage}
+            alt={imageAssets.altTexts.heroSecondaryBackground}
+            className="hero-bg-normal"
+          />
+        )}
 
-        <img
-          src={IMAGE_PATHS.CONTENT_HERO_SECONDARY_MOBILE}
-          alt={imageAssets.altTexts.heroSecondaryMobile}
-          className="hero-bg-mobile"
-        />
+        {mobileImage && (
+          <img
+            src={mobileImage}
+            alt={imageAssets.altTexts.heroSecondaryMobile}
+            className="hero-bg-mobile"
+          />
+        )}
         <div className="hero-content">
           <div className="hero-logo">
-            <h2 className="hero-subtitle">{t.heroSectionSecondary.subtitle}</h2>
-            <h1 className="hero-title">{t.heroSectionSecondary.title}</h1>
+            {subtitle && (
+              <h2 className="hero-subtitle">{subtitle}</h2>
+            )}
+            {title && (
+              <h1 className="hero-title">{title}</h1>
+            )}
           </div>
 
-          <div className="hero-text">
-            {t.heroSectionSecondary.description.map((text, index) => (
-              <p key={index} style={{marginBottom: index === t.heroSectionSecondary.description.length - 1 ? "0" : "10px"}} dangerouslySetInnerHTML={{ __html: text }} />
-            ))}
-          </div>
+          {description && (
+            <div 
+              className="hero-text"
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
+          )}
         </div>
       </div>
     </section>

@@ -7,6 +7,7 @@ interface WhatWeProduceProps {
   title: string;
   description: string;
   image: string;
+  mobileImage?: string;
   imageAlt?: string;
   backgroundColor?: string;
 }
@@ -15,6 +16,7 @@ const WhatWeProduce: React.FC<WhatWeProduceProps> = ({
   title,
   description,
   image,
+  mobileImage,
   imageAlt = "What we produce",
 }) => {
   return (
@@ -25,11 +27,27 @@ const WhatWeProduce: React.FC<WhatWeProduceProps> = ({
       <div className="what-we-produce-container">
         <div className="what-we-produce-header">
           <h2 className="what-we-produce-title">{title}</h2>
-          <p className="what-we-produce-description">{description}</p>
+          <div 
+            className="what-we-produce-description"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
         </div>
 
         <div className="what-we-produce-visual">
-          <img src={image} alt={imageAlt} className="what-we-produce-image" />
+          {image && (
+            <img 
+              src={image} 
+              alt={imageAlt} 
+              className="what-we-produce-image what-we-produce-image-desktop" 
+            />
+          )}
+          {mobileImage && (
+            <img 
+              src={mobileImage} 
+              alt={imageAlt} 
+              className="what-we-produce-image what-we-produce-image-mobile" 
+            />
+          )}
         </div>
       </div>
     </section>
