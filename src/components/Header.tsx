@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ theme = "primary" }) => {
       <div className="container ">
         <div className="header-content">
           <div className="logo">
-            <Link href="/">
+            <Link href="/" scroll={true}>
               {settings?.logo ? (
                 <img 
                   src={settings.logo} 
@@ -80,7 +80,11 @@ const Header: React.FC<HeaderProps> = ({ theme = "primary" }) => {
                   <Link 
                     href={item.href} 
                     className="nav-link"
-                    onClick={closeMenu}
+                    onClick={(e) => {
+                      closeMenu();
+                      // Navigation'ı engelleme - Next.js Link otomatik olarak handle eder
+                    }}
+                    scroll={true}
                   >
                     {language === "en" ? item.text_en : item.text_tr}
                   </Link>
