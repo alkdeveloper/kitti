@@ -39,9 +39,9 @@ const CategoryThird: React.FC<CategoryThirdProps> = ({
         </div> */}
 
         <div className="category-third-grid">
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <div
-              key={category.id}
+              key={`${category.id}-${index}-${category.title}`}
               className="category-third-card"
               style={{ backgroundColor: category.backgroundColor || "#FFF" }}
             >

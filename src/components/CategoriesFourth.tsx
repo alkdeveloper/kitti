@@ -77,8 +77,8 @@ const CategoriesFourth: React.FC<CategoriesFourthProps> = ({
         </div> */}
 
         <div className="categories-fourth-grid">
-          {categories.map((category) => (
-            <CategoryFourthCard key={category.id} category={category} />
+          {categories.map((category, index) => (
+            <CategoryFourthCard key={`${category.id}-${index}-${category.title}`} category={category} />
           ))}
         </div>
       </div>

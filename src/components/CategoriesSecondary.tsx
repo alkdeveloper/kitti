@@ -89,8 +89,8 @@ const CategoriesSecondary: React.FC<CategoriesSecondaryProps> = ({
         </div>
 
         <div className="categories-secondary-list">
-          {categories.map((category) => (
-            <CategorySecondaryCard key={category.id} category={category} />
+          {categories.map((category, index) => (
+            <CategorySecondaryCard key={`${category.id}-${index}-${category.title}`} category={category} />
           ))}
         </div>
       </div>

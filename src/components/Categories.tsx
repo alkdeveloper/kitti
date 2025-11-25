@@ -32,9 +32,9 @@ const Categories: React.FC<CategoriesProps> = ({
 
         <div className="categories-grid">
           {categories && categories.length > 0 ? (
-            categories.map((category) => (
+            categories.map((category, index) => (
               <ProductCard
-                key={category.id}
+                key={`${category.id}-${index}-${category.category}`}
                 category={category.category}
                 images={category.images}
               />

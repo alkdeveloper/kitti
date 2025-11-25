@@ -1,0 +1,31 @@
+2025-11-21 11:58:58 +00:00: npm notice
+2025-11-21 11:58:58 +00:00: npm notice New major version of npm available! 10.8.2 -> 11.6.3
+2025-11-21 11:58:58 +00:00: npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.6.3
+2025-11-21 11:58:58 +00:00: npm notice To update run: npm install -g npm@11.6.3
+2025-11-21 11:58:58 +00:00: npm notice
+2025-11-21 12:34:33 +00:00: Error fetching page meta: TypeError: fetch failed
+2025-11-21 12:34:33 +00:00:     at async Object.request (.next/server/chunks/ssr/_b328cf20._.js:4:20184)
+2025-11-21 12:34:33 +00:00:     at async Object.getSiteSettings (.next/server/chunks/ssr/_b328cf20._.js:4:21109)
+2025-11-21 12:34:33 +00:00:     at async d (.next/server/chunks/ssr/_b328cf20._.js:4:21389)
+2025-11-21 12:34:33 +00:00:     at async f (.next/server/chunks/ssr/_b328cf20._.js:4:21722) {
+2025-11-21 12:34:33 +00:00:   [cause]: [Error [ConnectTimeoutError]: Connect Timeout Error] {
+2025-11-21 12:34:33 +00:00:     code: 'UND_ERR_CONNECT_TIMEOUT'
+2025-11-21 12:34:33 +00:00:   }
+2025-11-21 12:34:33 +00:00: }
+2025-11-21 12:44:19 +00:00: Error fetching page meta: TypeError: fetch failed
+2025-11-21 12:44:19 +00:00:     at async Object.request (.next/server/chunks/ssr/_b328cf20._.js:4:20184)
+2025-11-21 12:44:19 +00:00:     at async Object.getSiteSettings (.next/server/chunks/ssr/_b328cf20._.js:4:21109)
+2025-11-21 12:44:19 +00:00:     at async d (.next/server/chunks/ssr/_b328cf20._.js:4:21389)
+2025-11-21 12:44:19 +00:00:     at async f (.next/server/chunks/ssr/_b328cf20._.js:4:21722) {
+2025-11-21 12:44:19 +00:00:   [cause]: [Error: redirect count exceeded]
+2025-11-21 12:44:19 +00:00: }
+2025-11-21 12:44:19 +00:00: (node:2200) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 22 terminated listeners added to [Fetch]. Use emitter.setMaxListeners() to increase limit
+2025-11-21 12:44:19 +00:00: (Use `node --trace-warnings ...` to show where the warning was created)
+2025-11-21 12:44:50 +00:00: Error fetching page meta: TypeError: fetch failed
+2025-11-21 12:44:50 +00:00:     at async Object.request (.next/server/chunks/ssr/_b328cf20._.js:4:20184)
+2025-11-21 12:44:50 +00:00:     at async Object.getSiteSettings (.next/server/chunks/ssr/_b328cf20._.js:4:21109)
+2025-11-21 12:44:50 +00:00:     at async d (.next/server/chunks/ssr/_b328cf20._.js:4:21389)
+2025-11-21 12:44:50 +00:00:     at async f (.next/server/chunks/ssr/_b328cf20._.js:4:21722) {
+2025-11-21 12:44:50 +00:00:   [cause]: [Error: redirect count exceeded]
+2025-11-21 12:44:50 +00:00: }
+2025-11-21 12:44:50 +00:00: (node:2200) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 22 terminated listeners added to [Fetch]. Use emitter.setMaxListeners() to increase limit

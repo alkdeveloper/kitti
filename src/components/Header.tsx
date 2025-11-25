@@ -18,6 +18,10 @@ const Header: React.FC<HeaderProps> = ({ theme = "primary" }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   const toggleLanguage = () => {
     setLanguage(language === "tr" ? "en" : "tr");
   };
@@ -73,7 +77,11 @@ const Header: React.FC<HeaderProps> = ({ theme = "primary" }) => {
             <ul className="nav-list">
               {settings?.menu_items?.map((item) => (
                 <li key={item.id}>
-                  <Link href={item.href} className="nav-link">
+                  <Link 
+                    href={item.href} 
+                    className="nav-link"
+                    onClick={closeMenu}
+                  >
                     {language === "en" ? item.text_en : item.text_tr}
                   </Link>
                 </li>
