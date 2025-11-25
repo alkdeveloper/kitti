@@ -1,7 +1,7 @@
 "use client";
 
 import { Inter, Caveat, Poppins } from "next/font/google";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./globals.scss";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { SiteSettingsProvider } from "@/contexts/SiteSettingsContext";
@@ -29,23 +29,31 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
   const [showLoading, setShowLoading] = useState(true);
   const [startReveal, setStartReveal] = useState(false);
   const [animationComplete, setAnimationComplete] = useState(false);
+  const hasInitialized = useRef(false);
 
   useEffect(() => {
-    // 2 saniye loading spinner göster
-    const loadingTimer = setTimeout(() => {
-      setShowLoading(false);
-      setStartReveal(true); // Loading bittikten sonra reveal başlat
-    }, 2000);
+    // Sadece ilk yüklemede loading spinner göster
+    if (!hasInitialized.current) {
+      hasInitialized.current = true;
+      
+      // 2 saniye loading spinner göster
+      const loadingTimer = setTimeout(() => {
+        setShowLoading(false);
+        setStartReveal(true); // Loading bittikten sonra reveal başlat
+      }, 2000);
 
-    // Reveal animasyonu bittikten sonra (2s loading + 2s reveal = 4s)
-    const revealTimer = setTimeout(() => {
-      setAnimationComplete(true);
-    }, 4000);
+      // Reveal animasyonu bittikten sonra (2s loading + 2s reveal = 4s)
+      const revealTimer = setTimeout(() => {
+        setAnimationComplete(true);
+      }, 4000);
 
-    return () => {
-      clearTimeout(loadingTimer);
-      clearTimeout(revealTimer);
-    };
+      return () => {
+        clearTimeout(loadingTimer);
+        clearTimeout(revealTimer);
+      };
+    }
+    // Route değişimlerinde useEffect tekrar çalışmamalı
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

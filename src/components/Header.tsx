@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSiteSettings } from "@/contexts/SiteSettingsContext";
+import { normalizeUrl } from "@/utils/url";
 
 interface HeaderProps {
   theme?: string;
@@ -34,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ theme = "primary" }) => {
             <Link href="/" scroll={true}>
               {settings?.logo ? (
                 <img 
-                  src={settings.logo} 
+                  src={normalizeUrl(settings.logo)} 
                   alt="Kitti Logo" 
                   width={77}
                   height={40}
@@ -85,6 +86,7 @@ const Header: React.FC<HeaderProps> = ({ theme = "primary" }) => {
                       // Navigation'ı engelleme - Next.js Link otomatik olarak handle eder
                     }}
                     scroll={true}
+                    prefetch={true}
                   >
                     {language === "en" ? item.text_en : item.text_tr}
                   </Link>
