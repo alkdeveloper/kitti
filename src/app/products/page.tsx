@@ -78,11 +78,11 @@ interface Type3CategoryData {
 
 // Unified category data type that can hold any category type
 type UnifiedCategoryData = 
-  | { type: 'type1'; data: Type1CategoryData }
-  | { type: 'type2'; data: Type2CategoryData }
-  | { type: 'type3'; data: Type3CategoryData }
-  | { type: 'type4'; data: Type4CategoryData }
-  | { type: 'type5'; data: Type5CategoryData };
+  | { id: number; type: 'type1'; data: Type1CategoryData }
+  | { id: number; type: 'type2'; data: Type2CategoryData }
+  | { id: number; type: 'type3'; data: Type3CategoryData }
+  | { id: number; type: 'type4'; data: Type4CategoryData }
+  | { id: number; type: 'type5'; data: Type5CategoryData };
 
 export default function ProductsPage() {
   const { language, t } = useLanguage();
@@ -111,6 +111,7 @@ export default function ProductsPage() {
         ) as CategoriesWithProductsResponse;
         
         console.log('Categories with products response:', response);
+        console.log('Total categories received:', response?.categories?.length);
 
         // Tüm kategorileri API'den gelen sırayla işle
         const unifiedCategoriesList: UnifiedCategoryData[] = [];
@@ -118,6 +119,7 @@ export default function ProductsPage() {
         // API'den gelen tüm kategorileri sırayla işle (filtreleme yapmadan)
         response?.categories?.forEach((category) => {
           const categoryType = category.category_type;
+          console.log(`Processing category ID: ${category.id}, Type: ${categoryType}, Title: ${category.title_tr || category.title_en}`);
           
           if (categoryType === 'type1') {
             const formattedCategories: CategoryItem[] = [];
@@ -133,6 +135,7 @@ export default function ProductsPage() {
             });
 
             unifiedCategoriesList.push({
+              id: category.id,
               type: 'type1',
               data: {
                 title: language === 'en' ? category.title_en : category.title_tr,
@@ -158,6 +161,7 @@ export default function ProductsPage() {
             });
 
             unifiedCategoriesList.push({
+              id: category.id,
               type: 'type2',
               data: {
                 title: language === 'en' ? category.title_en : category.title_tr,
@@ -185,6 +189,7 @@ export default function ProductsPage() {
             });
 
             unifiedCategoriesList.push({
+              id: category.id,
               type: 'type4',
               data: {
                 title: language === 'en' ? category.title_en : category.title_tr,
@@ -212,6 +217,7 @@ export default function ProductsPage() {
             });
 
             unifiedCategoriesList.push({
+              id: category.id,
               type: 'type5',
               data: {
                 title: language === 'en' ? category.title_en : category.title_tr,
@@ -245,6 +251,7 @@ export default function ProductsPage() {
             });
 
             unifiedCategoriesList.push({
+              id: category.id,
               type: 'type3',
               data: {
                 title: language === 'en' ? category.title_en : category.title_tr,
@@ -254,6 +261,9 @@ export default function ProductsPage() {
             });
           }
         });
+
+        console.log('Total processed categories:', unifiedCategoriesList.length);
+        console.log('Processed categories list:', unifiedCategoriesList.map(c => ({ id: c.id, type: c.type, title: c.data.title })));
 
         setCategoriesList(unifiedCategoriesList);
       } catch (error) {
@@ -269,11 +279,11 @@ export default function ProductsPage() {
     <>
       <Header theme="white" />
       <Slider />
-      {categoriesList.map((categoryItem, index) => {
+      {categoriesList.map((categoryItem) => {
         if (categoryItem.type === 'type1') {
           return (
             <Categories
-              key={`type1-${categoryItem.data.title}-${index}`}
+              key={`type1-${categoryItem.id}`}
               title={categoryItem.data.title}
               description={categoryItem.data.description}
               categories={categoryItem.data.categories || []}
@@ -282,7 +292,7 @@ export default function ProductsPage() {
         } else if (categoryItem.type === 'type2') {
           return (
             <CategoriesSecondary
-              key={`type2-${categoryItem.data.title}-${index}`}
+              key={`type2-${categoryItem.id}`}
               title={categoryItem.data.title}
               description={categoryItem.data.description}
               categories={categoryItem.data.categories}
@@ -291,7 +301,7 @@ export default function ProductsPage() {
         } else if (categoryItem.type === 'type4') {
           return (
             <CategoryThird
-              key={`type4-${categoryItem.data.title}-${index}`}
+              key={`type4-${categoryItem.id}`}
               title={categoryItem.data.title}
               description={categoryItem.data.description}
               categories={categoryItem.data.categories}
@@ -300,7 +310,7 @@ export default function ProductsPage() {
         } else if (categoryItem.type === 'type5') {
           return (
             <CategoriesFourth
-              key={`type5-${categoryItem.data.title}-${index}`}
+              key={`type5-${categoryItem.id}`}
               title={categoryItem.data.title}
               description={categoryItem.data.description}
               categories={categoryItem.data.categories}
@@ -308,7 +318,7 @@ export default function ProductsPage() {
           );
         } else if (categoryItem.type === 'type3') {
           return categoryItem.data.products.length > 0 ? (
-            <section key={`type3-${categoryItem.data.title}-${index}`} className="product-card-new-section" style={{ 
+            <section key={`type3-${categoryItem.id}`} className="product-card-new-section" style={{ 
               backgroundColor: "#F5F5F5", 
               padding: "100px 50px",
               display: "flex",
@@ -329,7 +339,7 @@ export default function ProductsPage() {
               <div className="product-card-new-grid">
                 {categoryItem.data.products.map((product, productIndex) => (
                   <ProductCardNew
-                    key={`${product.title}-${index}-${productIndex}`}
+                    key={`${categoryItem.id}-product-${productIndex}`}
                     title={product.title}
                     description={product.description}
                     mainImage={product.mainImage}
