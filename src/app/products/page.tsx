@@ -76,15 +76,33 @@ interface Type3CategoryData {
   products: ProductCardNewData[];
 }
 
+// Unified category data type that can hold any category type
+type UnifiedCategoryData = 
+  | { type: 'type1'; data: Type1CategoryData }
+  | { type: 'type2'; data: Type2CategoryData }
+  | { type: 'type3'; data: Type3CategoryData }
+  | { type: 'type4'; data: Type4CategoryData }
+  | { type: 'type5'; data: Type5CategoryData };
+
 export default function ProductsPage() {
   const { language, t } = useLanguage();
-  const [type1CategoriesList, setType1CategoriesList] = useState<Type1CategoryData[]>([]);
-  const [type2CategoryData, setType2CategoryData] = useState<Type2CategoryData | null>(null);
-  const [type4CategoryData, setType4CategoryData] = useState<Type4CategoryData | null>(null);
-  const [type5CategoryData, setType5CategoryData] = useState<Type5CategoryData | null>(null);
-  const [type3CategoryData, setType3CategoryData] = useState<Type3CategoryData | null>(null);
+  const [categoriesList, setCategoriesList] = useState<UnifiedCategoryData[]>([]);
 
   useEffect(() => {
+    // Helper function to process product images
+    const processProductImages = (images: Array<{ id: number; image: string }> | string[]): string[] => {
+      if (!images || images.length === 0) return [];
+      
+      if (typeof images[0] === 'object' && images[0] !== null && 'image' in images[0]) {
+        return (images as Array<{ id: number; image: string }>)
+          .map((img) => img.image)
+          .filter((img) => img && img.trim() !== '');
+      } else if (typeof images[0] === 'string') {
+        return (images as string[]).filter((img) => img && img.trim() !== '');
+      }
+      return [];
+    };
+
     const fetchData = async () => {
       try {
         // Categories with products endpoint
@@ -94,247 +112,153 @@ export default function ProductsPage() {
         
         console.log('Categories with products response:', response);
 
-        // category_type: "type1" olan kategorileri filtrele ve sıralı tut
-        const type1Cats = response?.categories?.filter(
-          (cat) => cat.category_type === 'type1'
-        ) || [];
-
-        // Her type1 category'yi ayrı ayrı CategoryItem array'ine dönüştür
-        const formattedCategoriesList: Type1CategoryData[] = [];
+        // Tüm kategorileri API'den gelen sırayla işle
+        const unifiedCategoriesList: UnifiedCategoryData[] = [];
         
-        type1Cats.forEach((category) => {
-          const formattedCategories: CategoryItem[] = [];
+        // API'den gelen tüm kategorileri sırayla işle (filtreleme yapmadan)
+        response?.categories?.forEach((category) => {
+          const categoryType = category.category_type;
           
-          category.products.forEach((product) => {
-            // Product images'ları string array'e dönüştür
-            let productImages: string[] = [];
-            if (product.images && product.images.length > 0) {
-              // Eğer images array'i içinde obje varsa (API'den gelen format: {id, image})
-              if (typeof product.images[0] === 'object' && product.images[0] !== null && 'image' in product.images[0]) {
-                productImages = (product.images as Array<{ id: number; image: string }>)
-                  .map((img) => img.image)
-                  .filter((img) => img && img.trim() !== ''); // Boş string'leri filtrele
-              } else if (typeof product.images[0] === 'string') {
-                // Eğer direkt string array ise
-                productImages = (product.images as string[]).filter((img) => img && img.trim() !== '');
-              }
-            }
+          if (categoryType === 'type1') {
+            const formattedCategories: CategoryItem[] = [];
             
-            formattedCategories.push({
-              id: product.id,
-              category: language === 'en' ? product.title_en : product.title_tr,
-              images: productImages, // Resim yoksa boş array olacak
+            category.products.forEach((product) => {
+              const productImages = processProductImages(product.images);
+              
+              formattedCategories.push({
+                id: product.id,
+                category: language === 'en' ? product.title_en : product.title_tr,
+                images: productImages,
+              });
             });
-          });
 
-          formattedCategoriesList.push({
-            title: language === 'en' ? category.title_en : category.title_tr,
-            description: language === 'en' ? category.description_en : category.description_tr,
-            categories: formattedCategories,
-          });
+            unifiedCategoriesList.push({
+              type: 'type1',
+              data: {
+                title: language === 'en' ? category.title_en : category.title_tr,
+                description: language === 'en' ? category.description_en : category.description_tr,
+                categories: formattedCategories,
+              },
+            });
+          } else if (categoryType === 'type2') {
+            const formattedType2Categories: CategorySecondaryItem[] = [];
+            
+            category.products.forEach((product) => {
+              const productImages = processProductImages(product.images);
+
+              formattedType2Categories.push({
+                id: product.id,
+                title: language === 'en' ? product.title_en : product.title_tr,
+                description: language === 'en' 
+                  ? (product.description_en || product.description_tr || '') 
+                  : (product.description_tr || product.description_en || ''),
+                images: productImages,
+                alt: language === 'en' ? product.title_en : product.title_tr,
+              });
+            });
+
+            unifiedCategoriesList.push({
+              type: 'type2',
+              data: {
+                title: language === 'en' ? category.title_en : category.title_tr,
+                description: language === 'en' ? category.description_en : category.description_tr,
+                categories: formattedType2Categories,
+              },
+            });
+          } else if (categoryType === 'type4') {
+            const formattedType4Categories: CategoryThirdItem[] = [];
+            
+            category.products.forEach((product, index) => {
+              const productImages = processProductImages(product.images);
+              const backgroundColor = index % 2 === 0 ? "#FFF" : "#FACBA2";
+
+              formattedType4Categories.push({
+                id: product.id,
+                title: language === 'en' ? product.title_en : product.title_tr,
+                description: language === 'en' 
+                  ? (product.description_en || product.description_tr || '') 
+                  : (product.description_tr || product.description_en || ''),
+                images: productImages,
+                alt: language === 'en' ? product.title_en : product.title_tr,
+                backgroundColor: backgroundColor,
+              });
+            });
+
+            unifiedCategoriesList.push({
+              type: 'type4',
+              data: {
+                title: language === 'en' ? category.title_en : category.title_tr,
+                description: language === 'en' ? category.description_en : category.description_tr,
+                categories: formattedType4Categories,
+              },
+            });
+          } else if (categoryType === 'type5') {
+            const formattedType5Categories: CategoryFourthItem[] = [];
+            
+            category.products.forEach((product, index) => {
+              const productImages = processProductImages(product.images);
+              const backgroundColor = index % 2 === 0 ? "#FFF" : "#F5E6D3";
+
+              formattedType5Categories.push({
+                id: product.id,
+                title: language === 'en' ? product.title_en : product.title_tr,
+                description: language === 'en' 
+                  ? (product.description_en || product.description_tr || '') 
+                  : (product.description_tr || product.description_en || ''),
+                images: productImages,
+                alt: language === 'en' ? product.title_en : product.title_tr,
+                backgroundColor: backgroundColor,
+              });
+            });
+
+            unifiedCategoriesList.push({
+              type: 'type5',
+              data: {
+                title: language === 'en' ? category.title_en : category.title_tr,
+                description: language === 'en' ? category.description_en : category.description_tr,
+                categories: formattedType5Categories,
+              },
+            });
+          } else if (categoryType === 'type3') {
+            const formattedType3Products: ProductCardNewData[] = [];
+            
+            category.products.forEach((product) => {
+              const productImages = processProductImages(product.images);
+
+              // Eğer images yoksa atla
+              if (productImages.length === 0) {
+                return;
+              }
+
+              const mainImage = productImages[0];
+              const colorImages = productImages.slice(0, 4); // Maksimum 4 resim
+
+              formattedType3Products.push({
+                title: language === 'en' ? product.title_en : product.title_tr,
+                description: language === 'en' 
+                  ? (product.description_en || product.description_tr || '') 
+                  : (product.description_tr || product.description_en || ''),
+                mainImage: mainImage,
+                colorImages: colorImages,
+                backgroundColor: "#FACBA2",
+              });
+            });
+
+            unifiedCategoriesList.push({
+              type: 'type3',
+              data: {
+                title: language === 'en' ? category.title_en : category.title_tr,
+                description: language === 'en' ? category.description_en : category.description_tr,
+                products: formattedType3Products,
+              },
+            });
+          }
         });
 
-        setType1CategoriesList(formattedCategoriesList);
-
-        // category_type: "type2" olan kategorileri filtrele (ilk type2 category'yi al)
-        const type2Cat = response?.categories?.find(
-          (cat) => cat.category_type === 'type2'
-        );
-
-        if (type2Cat) {
-          // Her type2 category'nin products'larını CategorySecondaryItem formatına dönüştür
-          const formattedType2Categories: CategorySecondaryItem[] = [];
-          
-          type2Cat.products.forEach((product) => {
-            // Product images'ları string array'e dönüştür
-            let productImages: string[] = [];
-            if (product.images && product.images.length > 0) {
-              // Eğer images array'i içinde obje varsa (API'den gelen format: {id, image})
-              if (typeof product.images[0] === 'object' && product.images[0] !== null && 'image' in product.images[0]) {
-                productImages = (product.images as Array<{ id: number; image: string }>)
-                  .map((img) => img.image)
-                  .filter((img) => img && img.trim() !== '');
-              } else if (typeof product.images[0] === 'string') {
-                // Eğer direkt string array ise
-                productImages = (product.images as string[]).filter((img) => img && img.trim() !== '');
-              }
-            }
-
-            formattedType2Categories.push({
-              id: product.id,
-              title: language === 'en' ? product.title_en : product.title_tr,
-              description: language === 'en' 
-                ? (product.description_en || product.description_tr || '') 
-                : (product.description_tr || product.description_en || ''),
-              images: productImages,
-              alt: language === 'en' ? product.title_en : product.title_tr,
-            });
-          });
-
-          setType2CategoryData({
-            title: language === 'en' ? type2Cat.title_en : type2Cat.title_tr,
-            description: language === 'en' ? type2Cat.description_en : type2Cat.description_tr,
-            categories: formattedType2Categories,
-          });
-        } else {
-          setType2CategoryData(null);
-        }
-
-        // category_type: "type4" olan kategorileri filtrele (ilk type4 category'yi al)
-        const type4Cat = response?.categories?.find(
-          (cat) => cat.category_type === 'type4'
-        );
-
-        if (type4Cat) {
-          // Her type4 category'nin products'larını CategoryThirdItem formatına dönüştür
-          const formattedType4Categories: CategoryThirdItem[] = [];
-          
-          type4Cat.products.forEach((product, index) => {
-            // Product images'ları string array'e dönüştür
-            let productImages: string[] = [];
-            if (product.images && product.images.length > 0) {
-              // Eğer images array'i içinde obje varsa (API'den gelen format: {id, image})
-              if (typeof product.images[0] === 'object' && product.images[0] !== null && 'image' in product.images[0]) {
-                productImages = (product.images as Array<{ id: number; image: string }>)
-                  .map((img) => img.image)
-                  .filter((img) => img && img.trim() !== '');
-              } else if (typeof product.images[0] === 'string') {
-                // Eğer direkt string array ise
-                productImages = (product.images as string[]).filter((img) => img && img.trim() !== '');
-              }
-            }
-
-            // backgroundColor için sıraya göre renk belirle (alternatif renkler)
-            const backgroundColor = index % 2 === 0 ? "#FFF" : "#FACBA2";
-
-            formattedType4Categories.push({
-              id: product.id,
-              title: language === 'en' ? product.title_en : product.title_tr,
-              description: language === 'en' 
-                ? (product.description_en || product.description_tr || '') 
-                : (product.description_tr || product.description_en || ''),
-              images: productImages,
-              alt: language === 'en' ? product.title_en : product.title_tr,
-              backgroundColor: backgroundColor,
-            });
-          });
-
-          setType4CategoryData({
-            title: language === 'en' ? type4Cat.title_en : type4Cat.title_tr,
-            description: language === 'en' ? type4Cat.description_en : type4Cat.description_tr,
-            categories: formattedType4Categories,
-          });
-        } else {
-          setType4CategoryData(null);
-        }
-
-        // category_type: "type5" olan kategorileri filtrele (ilk type5 category'yi al)
-        const type5Cat = response?.categories?.find(
-          (cat) => cat.category_type === 'type5'
-        );
-
-        if (type5Cat) {
-          // Her type5 category'nin products'larını CategoryFourthItem formatına dönüştür
-          const formattedType5Categories: CategoryFourthItem[] = [];
-          
-          type5Cat.products.forEach((product, index) => {
-            // Product images'ları string array'e dönüştür
-            let productImages: string[] = [];
-            if (product.images && product.images.length > 0) {
-              // Eğer images array'i içinde obje varsa (API'den gelen format: {id, image})
-              if (typeof product.images[0] === 'object' && product.images[0] !== null && 'image' in product.images[0]) {
-                productImages = (product.images as Array<{ id: number; image: string }>)
-                  .map((img) => img.image)
-                  .filter((img) => img && img.trim() !== '');
-              } else if (typeof product.images[0] === 'string') {
-                // Eğer direkt string array ise
-                productImages = (product.images as string[]).filter((img) => img && img.trim() !== '');
-              }
-            }
-
-            // backgroundColor için sıraya göre renk belirle (alternatif renkler)
-            const backgroundColor = index % 2 === 0 ? "#FFF" : "#F5E6D3";
-
-            formattedType5Categories.push({
-              id: product.id,
-              title: language === 'en' ? product.title_en : product.title_tr,
-              description: language === 'en' 
-                ? (product.description_en || product.description_tr || '') 
-                : (product.description_tr || product.description_en || ''),
-              images: productImages,
-              alt: language === 'en' ? product.title_en : product.title_tr,
-              backgroundColor: backgroundColor,
-            });
-          });
-
-          setType5CategoryData({
-            title: language === 'en' ? type5Cat.title_en : type5Cat.title_tr,
-            description: language === 'en' ? type5Cat.description_en : type5Cat.description_tr,
-            categories: formattedType5Categories,
-          });
-        } else {
-          setType5CategoryData(null);
-        }
-
-        // category_type: "type3" olan kategorileri filtrele (ilk type3 category'yi al)
-        const type3Cat = response?.categories?.find(
-          (cat) => cat.category_type === 'type3'
-        );
-
-        if (type3Cat) {
-          // Her type3 category'nin products'larını ProductCardNewData formatına dönüştür
-          const formattedType3Products: ProductCardNewData[] = [];
-          
-          type3Cat.products.forEach((product) => {
-            // Product images'ları string array'e dönüştür
-            let productImages: string[] = [];
-            if (product.images && product.images.length > 0) {
-              // Eğer images array'i içinde obje varsa (API'den gelen format: {id, image})
-              if (typeof product.images[0] === 'object' && product.images[0] !== null && 'image' in product.images[0]) {
-                productImages = (product.images as Array<{ id: number; image: string }>)
-                  .map((img) => img.image)
-                  .filter((img) => img && img.trim() !== '');
-              } else if (typeof product.images[0] === 'string') {
-                // Eğer direkt string array ise
-                productImages = (product.images as string[]).filter((img) => img && img.trim() !== '');
-              }
-            }
-
-            // Eğer images yoksa atla
-            if (productImages.length === 0) {
-              return;
-            }
-
-            // mainImage ilk resim, colorImages tüm resimler (en fazla 4, kaç tane varsa o kadar)
-            const mainImage = productImages[0];
-            const colorImages = productImages.slice(0, 4); // Maksimum 4 resim
-
-            formattedType3Products.push({
-              title: language === 'en' ? product.title_en : product.title_tr,
-              description: language === 'en' 
-                ? (product.description_en || product.description_tr || '') 
-                : (product.description_tr || product.description_en || ''),
-              mainImage: mainImage,
-              colorImages: colorImages,
-      backgroundColor: "#FACBA2",
-            });
-          });
-
-          setType3CategoryData({
-            title: language === 'en' ? type3Cat.title_en : type3Cat.title_tr,
-            description: language === 'en' ? type3Cat.description_en : type3Cat.description_tr,
-            products: formattedType3Products,
-          });
-        } else {
-          setType3CategoryData(null);
-        }
+        setCategoriesList(unifiedCategoriesList);
       } catch (error) {
         console.error('Error fetching data:', error);
-        setType1CategoriesList([]);
-        setType2CategoryData(null);
-        setType4CategoryData(null);
-        setType5CategoryData(null);
-        setType3CategoryData(null);
+        setCategoriesList([]);
       }
     };
 
@@ -345,75 +269,80 @@ export default function ProductsPage() {
     <>
       <Header theme="white" />
       <Slider />
-      {type1CategoriesList.length > 0 && type1CategoriesList.map((categoryData, index) => (
-      <Categories
-          key={index}
-          title={categoryData.title}
-          description={categoryData.description}
-          categories={categoryData.categories || []}
-        />
-      ))}
-      {type2CategoryData && type2CategoryData.categories.length > 0 && (
-      <CategoriesSecondary
-          title={type2CategoryData.title}
-          description={type2CategoryData.description}
-          categories={type2CategoryData.categories}
-        />
-      )}
-      {type4CategoryData && type4CategoryData.categories.length > 0 && (
-      <CategoryThird
-          title={type4CategoryData.title}
-          description={type4CategoryData.description}
-          categories={type4CategoryData.categories}
-        />
-      )}
-      {type5CategoryData && type5CategoryData.categories.length > 0 && (
-      <CategoriesFourth
-          title={type5CategoryData.title}
-          description={type5CategoryData.description}
-          categories={type5CategoryData.categories}
-        />
-      )}
-      {/* <CategoriesFifth
-        title={t.products.categories.title}
-        description={t.products.categories.description}
-        categories={categoriesFifth}
-      /> */}
-
-      {/* Product Card New Section */}
-      {type3CategoryData && type3CategoryData.products.length > 0 && (
-      <section className="product-card-new-section" style={{ 
-        backgroundColor: "#F5F5F5", 
-        padding: "100px 50px",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        gap: "40px"
-      }}>
-        <div className="product-card-new-header">
-          <h2 className="product-card-new-header-title">
-              {type3CategoryData.title}
-          </h2>
-          <p className="product-card-new-header-description">
-              {type3CategoryData.description}
-          </p>
-        </div>
-        
-        <div className="product-card-new-grid">
-            {type3CategoryData.products.map((product, index) => (
-            <ProductCardNew
-                key={`${product.title}-${index}`}
-              title={product.title}
-              description={product.description}
-              mainImage={product.mainImage}
-              colorImages={product.colorImages}
-              backgroundColor={product.backgroundColor}
+      {categoriesList.map((categoryItem, index) => {
+        if (categoryItem.type === 'type1') {
+          return (
+            <Categories
+              key={`type1-${categoryItem.data.title}-${index}`}
+              title={categoryItem.data.title}
+              description={categoryItem.data.description}
+              categories={categoryItem.data.categories || []}
             />
-          ))}
-        </div>
-      </section>
-      )}
+          );
+        } else if (categoryItem.type === 'type2') {
+          return (
+            <CategoriesSecondary
+              key={`type2-${categoryItem.data.title}-${index}`}
+              title={categoryItem.data.title}
+              description={categoryItem.data.description}
+              categories={categoryItem.data.categories}
+            />
+          );
+        } else if (categoryItem.type === 'type4') {
+          return (
+            <CategoryThird
+              key={`type4-${categoryItem.data.title}-${index}`}
+              title={categoryItem.data.title}
+              description={categoryItem.data.description}
+              categories={categoryItem.data.categories}
+            />
+          );
+        } else if (categoryItem.type === 'type5') {
+          return (
+            <CategoriesFourth
+              key={`type5-${categoryItem.data.title}-${index}`}
+              title={categoryItem.data.title}
+              description={categoryItem.data.description}
+              categories={categoryItem.data.categories}
+            />
+          );
+        } else if (categoryItem.type === 'type3') {
+          return categoryItem.data.products.length > 0 ? (
+            <section key={`type3-${categoryItem.data.title}-${index}`} className="product-card-new-section" style={{ 
+              backgroundColor: "#F5F5F5", 
+              padding: "100px 50px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              gap: "40px"
+            }}>
+              <div className="product-card-new-header">
+                <h2 className="product-card-new-header-title">
+                  {categoryItem.data.title}
+                </h2>
+                <p className="product-card-new-header-description">
+                  {categoryItem.data.description}
+                </p>
+              </div>
+              
+              <div className="product-card-new-grid">
+                {categoryItem.data.products.map((product, productIndex) => (
+                  <ProductCardNew
+                    key={`${product.title}-${index}-${productIndex}`}
+                    title={product.title}
+                    description={product.description}
+                    mainImage={product.mainImage}
+                    colorImages={product.colorImages}
+                    backgroundColor={product.backgroundColor}
+                  />
+                ))}
+              </div>
+            </section>
+          ) : null;
+        }
+        return null;
+      })}
 
       <Footer theme="bordered" />
       <FooterBottom theme="white" />
