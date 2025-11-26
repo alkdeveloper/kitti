@@ -265,6 +265,8 @@ export interface SiteSettings {
   id?: number;
   logo?: string;
   favicon?: string;
+  head_tracking_code?: string | null;
+  body_tracking_code?: string | null;
   site_title?: string;
   site_title_tr?: string;
   site_title_en?: string;

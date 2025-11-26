@@ -8,6 +8,7 @@ import { SiteSettingsProvider } from "@/contexts/SiteSettingsContext";
 import CookieConsent from "@/components/CookieConsent";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Favicon from "@/components/Favicon";
+import TrackingScripts from "@/components/TrackingScripts";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -83,6 +84,7 @@ export default function RootLayout({
             <LayoutContent>
               {children}
             </LayoutContent>
+            <TrackingScripts />
           </LanguageProvider>
         </SiteSettingsProvider>
       </body>
